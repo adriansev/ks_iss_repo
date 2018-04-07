@@ -1,0 +1,3 @@
+# add nvidia drivers from negativo for fedora27
+dnf -y install kernel-devel akmod-nvidia nvidia-driver nvidia-settings nvidia-xconfig nvidia-modprobe
+
