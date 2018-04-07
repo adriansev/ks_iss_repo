@@ -1,0 +1,46 @@
+## EL7 ks
+
+# If present, X is not configured on the installed system.
+skipx
+
+authconfig --enableshadow --passalgo=sha512
+firstboot --disabled
+
+## Installation mode
+graphical
+##text
+
+# Run the Setup Agent on first boot
+firstboot --disabled
+
+# Accept Eula
+eula --agreed
+
+## After the installation is finished
+reboot
+
+# System keyboard
+keyboard --vckeymap=us --xlayouts='us'
+
+# System language
+lang en_US.UTF-8
+
+## enable SSH port in firewall
+firewall --enabled --port=60000:tcp
+
+# SELinux configuration ;By default, selinux is enforcing
+#selinux --enforcing
+selinux --permissive
+
+# Services
+services --disabled=avahi-daemon,kdump,gpm --enabled=NetworkManager,sshd,chronyd
+
+# Installation logging level
+logging --level=debug
+
+# System timezone
+timezone Europe/Bucharest --ntpservers time.usv.ro
+
+## customize the bootloader
+bootloader --append="rootfstype=ext4 rd.auto=1 rd.plymouth=0 plymouth.enable=0 rd.md=0 rd.dm=0 rd.lvm=0 rd.luks=0"
+

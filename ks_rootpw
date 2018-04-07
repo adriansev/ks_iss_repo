@@ -1,0 +1,8 @@
+#!/bin/bash
+
+HASH=$(cat root_pass.hash | tr -d '[:space:]')
+
+echo -ne '#set root pw here (required by KS)
+rootpw --iscrypted '
+echo -ne "${HASH}\n\n"
+

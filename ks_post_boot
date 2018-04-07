@@ -1,0 +1,12 @@
+
+## remove rhgb
+echo "Configure plymouth"
+plymouth-set-default-theme details
+dracut -f
+
+## Verbose boot
+echo "Verbose boot"
+sed -i 's/rhgb\|quiet//g' /etc/default/grub
+grub2-mkconfig -o /boot/grub2/grub.cfg
+echo
+

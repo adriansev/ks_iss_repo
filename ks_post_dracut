@@ -1,0 +1,14 @@
+
+## customise dracut configuration
+echo "Configure dracut"
+cat << EOF >> /etc/dracut.conf.d/configinit.conf
+hostonly="yes"
+mdadmconf="no"
+lvmconf="no"
+omit_dracutmodules+="plymouth btrfs lvm cifs fcoe fcoe-uefi iscsi nbd"
+##add_dracutmodules+="dm dmraid mdraid"
+##filesystems+="ext4"
+fscks="umount mount /sbin/fsck* e2fsck"
+EOF
+echo
+

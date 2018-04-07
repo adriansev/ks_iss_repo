@@ -1,0 +1,25 @@
+
+## Configure chrony
+echo "Configure chrony"
+mv /etc/chrony.conf /etc/chrony.conf.ini_install
+cat << EOF >> /etc/chrony.conf
+server 85.120.46.1 iburst
+server time.usv.ro iburst
+server 0.ro.pool.ntp.org iburst
+stratumweight 0
+driftfile /var/lib/chrony/drift
+rtcsync
+makestep 10 3
+port 0
+keyfile /etc/chrony.keys
+commandkey 1
+generatecommandkey
+noclientlog
+logchange 2
+logdir /var/log/chrony
+
+EOF
+echo
+
+systemctl enable chronyd
+

@@ -1,0 +1,6 @@
+
+# Install from an installation tree on a remote server
+install
+nfs --server=monitor.spacescience.ro --dir=/f27/
+##url --url=http://monitor.spacescience.ro/f27/
+

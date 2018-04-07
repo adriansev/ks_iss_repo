@@ -1,0 +1,13 @@
+
+## configure smartmontools
+echo "Configure smartmontools"
+mv /etc/smartmontools/smartd.conf /etc/smartmontools/smartd.conf.ini_install
+cat << EOF >> /etc/smartmontools/smartd.conf
+DEVICESCAN -a -o on -S on -r 1 -r 7 -m glite@spacescience.ro -s (S/../.././02|L/../../6/03)
+
+EOF
+systemctl enable smartd
+
+echo
+
+

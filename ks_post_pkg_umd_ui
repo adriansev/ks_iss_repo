@@ -1,0 +1,4 @@
+## install UMD packages - dependency not solved in packages section
+# yum -y protobuf.x86_64 protobuf-c.x86_64 protobuf-compiler.x86_64 protobuf-c-compiler.x86_64 libdb-cxx.x86_64
+yum -y install ui
+

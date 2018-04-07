@@ -1,0 +1,6 @@
+echo "Updating packages"
+yum clean all
+yum -y update
+
+grub2-mkconfig -o /boot/grub2/grub.cfg
+

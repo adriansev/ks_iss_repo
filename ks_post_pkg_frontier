@@ -1,0 +1,15 @@
+## install frontier
+echo "Configure frontier"
+mkdir -p /etc/squid/
+
+cat << EOF >> /etc/squid/squidconf
+export FRONTIER_USER=frontier
+export FRONTIER_GROUP=frontier
+export SETSQUIDAFFINITY=true
+export SQUID_CLEAN_CACHE_ON_START=false
+
+EOF
+echo
+
+yum -y install frontier-squid
+

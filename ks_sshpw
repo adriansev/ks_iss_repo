@@ -1,0 +1,8 @@
+#!/bin/bash
+
+HASH=$(cat ssh_pass.hash | tr -d '[:space:]' )
+
+echo -ne '## enable ssh during install ; add inst.sshd to kernel line
+sshpw --username=root --iscrypted '
+echo -ne "${HASH}\n\n"
+
