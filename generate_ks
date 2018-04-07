@@ -1,14 +1,14 @@
 #!/bin/bash
 
 ARG=$1
-[[ -z "${ARG}" ]] && {echo "The name of ks configuration file should be used as argument"; exit 1;}
-[[ ! -e "${ARG}" ]] && {echo "ks cfg file not found"; exit 1;}
+[[ -z "${ARG}" ]] && { echo "The name of ks configuration file should be used as argument"; exit 1; }
+[[ ! -e "${ARG}" ]] && { echo "ks cfg file not found"; exit 1; }
 
 NAME=$(basename ${ARG} .cfg )
 FILENAME="${NAME}.ks"
 
 ## START CREATING KICKSTART FILE
-( ${ARG} ) > ${FILENAME}
+( bash ${ARG} ) > ${FILENAME}
 
 eval $(sed -n 's/#KSVER/KSVER/p' ${FILENAME})
 [[ -n "${KSVER}" ]] && KSVALIDATEVER="-v ${KSVER}"
