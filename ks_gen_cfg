@@ -1,4 +1,3 @@
-## EL7 ks
 
 # If present, X is not configured on the installed system.
 skipx
