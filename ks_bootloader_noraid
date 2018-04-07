@@ -40,3 +40,6 @@ logging --level=debug
 # System timezone
 timezone Europe/Bucharest --ntpservers time.usv.ro
 
+## customize the bootloader
+bootloader --append="rootfstype=ext4 rd.plymouth=0 plymouth.enable=0 rd.auto=0 rd.md=0 rd.dm=0 rd.lvm=0 rd.luks=0"
+
