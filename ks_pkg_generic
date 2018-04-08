@@ -2,6 +2,7 @@ NetworkManager-tui.x86_64
 iptables-services.x86_64
 iptables-utils.x86_64
 iptables
+yum-utils
 yum-priorities
 yum-plugin-fastestmirror
 epel-release
@@ -32,6 +33,8 @@ gdisk
 pciutils
 edac-utils
 ganglia-gmond
+bzip2
+tar
 xz
 unzip
 p7zip.x86_64

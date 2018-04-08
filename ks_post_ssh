@@ -12,23 +12,33 @@ ecdsa-sha2-nistp521 AAAAE2VjZHNhLXNoYTItbmlzdHA1MjEAAAAIbmlzdHA1MjEAAACFBABFIo4z
 EOF
 
 # change the ssh port and permit root logon
-/usr/bin/sed -i 's/#Port 22/Port 60000/; s/#PermitRootLogin yes/PermitRootLogin yes/; s/#AddressFamily any/AddressFamily inet/; s/#ListenAddress 0.0.0.0/ListenAddress 0.0.0.0/' /etc/ssh/sshd_config
+/usr/bin/sed -i 's/#Port 22/Port 60000/;' /etc/ssh/sshd_config
+
+cat << EOF >> /etc/ssh/sshd_config
+
+Match Address 127.0.0.1,85.120.46.0/26,46.243.114.128/25,10.10.8.0/22,172.20.0.0/24
+PermitRootLogin yes
+
+EOF
+
 
 ## permit in selinux the 60000 port
 # semanage port -a -t ssh_port_t -p tcp 60000
 
 ## make sure the ssh is configured
-firewall-cmd --set-default-zone=public
-firewall-cmd --permanent --zone=public --add-port=60000/tcp
-firewall-cmd --permanent --zone=public --remove-service=dhcpv6-client
-echo
 
 ## add ssh port to iptables
 if [[ -e /etc/sysconfig/iptables ]] ; then
-    cp /etc/sysconfig/iptables /etc/sysconfig/iptables_ini_install
-    LINENR_INSERT=$(iptables -v --line-numbers -t filter -nL INPUT | tail -n +3 | awk '!/DROP|ESTABLISHED|icmp|lo/ {print $1; exit;}')
-    let $((LINENR_INSERT++))
-    iptables -t filter -i INPUT ${LINENR_INSERT} -m state --state NEW -m tcp -p tcp --dport 60000 -j ACCEPT
-    iptables-save > /etc/sysconfig/iptables
+    cp /etc/sysconfig/iptables /etc/sysconfig/iptables_ini_sshd_cfg
+    sed -i 's/--dport 22/--dport 60000/' /etc/sysconfig/iptables
+    sed -i 's/--dport 22/--dport 60000/' /etc/sysconfig/ip6tables
+    systemctl restart iptables ip6tables
+
+else
+    firewall-cmd --set-default-zone=public
+    firewall-cmd --permanent --zone=public --add-port=60000/tcp
+    firewall-cmd --permanent --zone=public --remove-service=dhcpv6-client
 fi
+
+echo
 

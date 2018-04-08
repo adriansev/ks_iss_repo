@@ -1,5 +1,5 @@
 # add igtf certificates repository
 rpm --import http://repository.egi.eu/sw/production/cas/1/current/GPG-KEY-EUGridPMA-RPM-3
 wget http://repository.egi.eu/sw/production/cas/1/current/repo-files/EGI-trustanchors.repo -O /etc/yum.repos.d/EGI-trustanchors.repo
-yum -y install ca-policy-egi-core ca-policy-egi-cam ca-policy-lcg
+yum -y --skip-broken install ca-policy-egi-core ca-policy-egi-cam ca-policy-lcg
 

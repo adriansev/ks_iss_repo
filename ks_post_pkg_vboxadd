@@ -1,0 +1,4 @@
+## download and install vbox additons
+yum -y --skip-broken install gcc make perl
+bash <(curl -fskSL https://monitor.spacescience.ro/vbox/vbox_additions_auto)
+

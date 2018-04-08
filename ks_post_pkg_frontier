@@ -11,5 +11,5 @@ export SQUID_CLEAN_CACHE_ON_START=false
 EOF
 echo
 
-yum -y install frontier-squid
+yum -y --skip-broken install frontier-squid
 
