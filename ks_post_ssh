@@ -16,7 +16,7 @@ EOF
 
 cat << EOF >> /etc/ssh/sshd_config
 
-Match Address 127.0.0.1,85.120.46.0/26,46.243.114.128/25,10.10.8.0/22,172.20.0.0/24
+Match Address 85.120.46.0/26,46.243.114.128/25,10.10.8.0/22,172.20.0.0/24
 PermitRootLogin yes
 
 EOF

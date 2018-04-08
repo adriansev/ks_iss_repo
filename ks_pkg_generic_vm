@@ -2,6 +2,7 @@ NetworkManager-tui.x86_64
 iptables-services.x86_64
 iptables-utils.x86_64
 iptables
+-firewalld*
 yum-utils
 yum-priorities
 yum-plugin-fastestmirror
