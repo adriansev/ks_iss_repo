@@ -21,6 +21,7 @@ PermitRootLogin yes
 
 EOF
 
+systemctl enable sshd
 
 ## permit in selinux the 60000 port
 # semanage port -a -t ssh_port_t -p tcp 60000
@@ -32,8 +33,9 @@ if [[ -e /etc/sysconfig/iptables ]] ; then
     cp /etc/sysconfig/iptables /etc/sysconfig/iptables_ini_sshd_cfg
     sed -i 's/--dport 22/--dport 60000/' /etc/sysconfig/iptables
     sed -i 's/--dport 22/--dport 60000/' /etc/sysconfig/ip6tables
-    systemctl restart iptables ip6tables
 
+    systemctl enable  iptables ip6tables
+    systemctl restart iptables ip6tables
 else
     firewall-cmd --set-default-zone=public
     firewall-cmd --permanent --zone=public --add-port=60000/tcp
