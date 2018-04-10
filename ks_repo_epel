@@ -1,3 +1,0 @@
-## Add EPEL as default addin
-repo --name=epel --mirrorlist=https://mirrors.fedoraproject.org/metalink?repo=epel-7&arch=$basearch
-
