@@ -1,0 +1,8 @@
+# Register the name in sev.spacescience.ro dnsmasq
+cat << EOF > /etc/NetworkManager/dispatcher.d/30-regip
+#!/bin/sh
+/usr/bin/curl -fslk https://sev.spacescience.ro/dnsmasq/reg.php?$(/usr/bin/hostname -s)
+
+EOF
+echo
+
