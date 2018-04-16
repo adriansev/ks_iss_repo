@@ -1,0 +1,30 @@
+#!/bin/bash
+
+#process fedora.repo
+f="/etc/yum.repos.d/fedora.repo"
+cp ${f} ${f}.ini
+# replace base link
+MIRRORLINK=$(sed -n '/\[fedora\]/,/\[/p' ${f} | awk '/^metalink.*http/ {gsub(/metalink\s=\s/,"",$0); print $0;}') #'
+[[ -n "${MIRRORLINK}" ]] && { grep -v "${MIRRORLINK}" ${f} > tmp ; mv -f tmp ${f}; }
+dnf config-manager --save --setopt=fedora.baseurl=http://monitor.spacescience.ro/mirrors/fedora/releases/27/Everything/x86_64/os/ fedora &>/dev/null
+
+# replace base link
+MIRRORLINK=$(sed -n '/\[fedora-debuginfo\]/,/\[/p' ${f} | awk '/^metalink.*http/ {gsub(/metalink\s=\s/,"",$0); print $0;}') #'
+[[ -n "${MIRRORLINK}" ]] && { grep -v "${MIRRORLINK}" ${f} > tmp ; mv -f tmp ${f}; }
+dnf config-manager --save --setopt=fedora-debuginfo.baseurl=http://monitor.spacescience.ro/mirrors/fedora/releases/27/Everything/x86_64/debug/tree/ fedora-debuginfo &>/dev/null
+
+################################################################################
+
+#process fedora-updates.repo
+f="/etc/yum.repos.d/fedora-updates.repo"
+cp ${f} ${f}.ini
+# replace updates link
+MIRRORLINK=$(sed -n '/\[updates\]/,/\[/p' ${f} | awk '/^metalink.*http/ {gsub(/metalink\s=\s/,"",$0); print $0;}') #'
+[[ -n "${MIRRORLINK}" ]] && { grep -v "${MIRRORLINK}" ${f} > tmp ; mv -f tmp ${f}; }
+dnf config-manager --save --setopt=updates.baseurl=http://monitor.spacescience.ro/mirrors/fedora/updates/27/x86_64/ updates &>/dev/null
+
+# replace updates-debuginfo link
+MIRRORLINK=$(sed -n '/\[updates-debuginfo\]/,/\[/p' ${f} | awk '/^metalink.*http/ {gsub(/metalink\s=\s/,"",$0); print $0;}') #'
+[[ -n "${MIRRORLINK}" ]] && { grep -v "${MIRRORLINK}" ${f} > tmp ; mv -f tmp ${f}; }
+dnf config-manager --save --setopt=updates-debuginfo.baseurl=http://monitor.spacescience.ro/mirrors/fedora/updates/27/x86_64/debug/ updates-debuginfo &>/dev/null
+

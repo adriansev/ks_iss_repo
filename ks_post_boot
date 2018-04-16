@@ -7,6 +7,10 @@ dracut -f
 ## Verbose boot
 echo "Verbose boot"
 sed -i 's/GRUB_DEFAULT.*/GRUB_DEFAULT=0/; s/rhgb\|quiet//g;' /etc/default/grub
-grub2-mkconfig -o /boot/grub2/grub.cfg
+
+GRUBDIR="/boot/grub2"
+[[ -d /sys/firmware/efi ]] && GRUBDIR="/boot/efi/EFI/fedora"
+grub2-mkconfig -o ${GRUBDIR}/grub.cfg
+
 echo
 
