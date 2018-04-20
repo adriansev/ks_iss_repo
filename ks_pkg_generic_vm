@@ -21,6 +21,7 @@ ipset-service
 man
 mc
 net-tools
+git
 NetworkManager-tui.x86_64
 openssh-server
 p7zip-plugins.x86_64
@@ -29,6 +30,7 @@ parted
 policycoreutils-python
 pv
 redhat-lsb-core
+rsync
 tar
 screen
 tmux
