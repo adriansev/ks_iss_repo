@@ -23,6 +23,7 @@ mc
 net-tools
 git
 NetworkManager-tui.x86_64
+mlocate
 openssh-server
 p7zip-plugins.x86_64
 p7zip.x86_64
