@@ -1,0 +1,4 @@
+yum-plugin-fastestmirror
+yum-plugin-priorities.noarch
+yum-plugin-protectbase.noarch
+yum-utils

@@ -21,6 +21,8 @@ ipset-service
 man
 mc
 net-tools
+lsof
+procps-ng
 git
 NetworkManager-tui.x86_64
 mlocate

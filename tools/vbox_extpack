@@ -1,0 +1,23 @@
+#!/bin/bash
+
+CURL="/usr/bin/curl -sfSLk"
+
+VER=$(${CURL} http://download.virtualbox.org/virtualbox/LATEST.TXT)
+DIR="http://download.virtualbox.org/virtualbox/${VER}/"
+
+EXTPACK="Oracle_VM_VirtualBox_Extension_Pack-${VER}.vbox-extpack"
+
+SUMS="SHA256SUMS"
+
+${CURL} -O ${DIR}/${SUMS} -O ${DIR}/${EXTPACK}
+REZ=$?
+[[ ${REZ} != "0" ]] && { echo "DOWNLOAD FAILED!!!" && exit 1; }
+
+grep "${EXTPACK}" ${SUMS} > MYSHA256SUMS_EXTPACK && rm -rf ${SUMS}
+
+sha256sum -c MYSHA256SUMS_EXTPACK
+REZ=$?
+[[ ${REZ} != "0" ]] && { echo "SHA256 CHECKSUM FAILED!!!" && exit 1; }
+
+sudo VBoxManage extpack install ${EXTPACK}
+

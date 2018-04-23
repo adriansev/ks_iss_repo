@@ -1,0 +1,27 @@
+#!/bin/bash
+
+CURL="/usr/bin/curl -sfSLk"
+
+VER=$(${CURL} http://download.virtualbox.org/virtualbox/LATEST.TXT)
+DIR="http://download.virtualbox.org/virtualbox/${VER}/"
+
+GUESTADD="${DIR}/VBoxGuestAdditions_${VER}.iso"
+SUMS="${DIR}/SHA256SUMS"
+
+GUESTADD_NAME=$(basename ${GUESTADD})
+SUMS_NAME=$(basename ${SUMS})
+
+${CURL} -O ${SUMS} -O ${GUESTADD}
+REZ=$?
+[[ ${REZ} != "0" ]] && { echo "DOWNLOAD FAILED!!!" && exit 1; }
+
+grep "${GUESTADD_NAME}" ${SUMS_NAME} > MYSHA256SUMS && rm -rf ${SUMS_NAME}
+
+sha256sum -c MYSHA256SUMS
+REZ=$?
+[[ ${REZ} != "0" ]] && { echo "SHA256 CHECKSUM FAILED!!!" && exit 1; }
+
+7z e -y ${GUESTADD_NAME} VBoxLinuxAdditions.run &> /dev/null && chmod +x VBoxLinuxAdditions.run;
+
+sudo ./VBoxLinuxAdditions.run
+

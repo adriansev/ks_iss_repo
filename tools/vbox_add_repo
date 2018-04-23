@@ -1,0 +1,12 @@
+#!/bin/bash
+
+rpm --import https://www.virtualbox.org/download/oracle_vbox.asc
+
+is_dnf=$(which dnf 2>/dev/null)
+
+if [[ -n "${is_dnf}" ]]; then
+  dnf config-manager --add-repo=https://download.virtualbox.org/virtualbox/rpm/fedora/virtualbox.repo
+else
+  yum-config-manager --add-repo=https://download.virtualbox.org/virtualbox/rpm/el/virtualbox.repo
+fi
+
