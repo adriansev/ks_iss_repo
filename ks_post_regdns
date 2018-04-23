@@ -4,5 +4,6 @@ cat << EOF > /etc/NetworkManager/dispatcher.d/30-regip
 /usr/bin/curl -fslk https://sev.spacescience.ro/dnsmasq/reg.php?$(/usr/bin/hostname -s)
 
 EOF
+chmod +x /etc/NetworkManager/dispatcher.d/30-regip
 echo
 
