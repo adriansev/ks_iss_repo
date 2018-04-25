@@ -1,7 +1,7 @@
 # Register the name in sev.spacescience.ro dnsmasq
 cat << EOF > /etc/NetworkManager/dispatcher.d/30-regip
 #!/bin/sh
-/usr/bin/curl -fslk https://sev.spacescience.ro/dnsmasq/reg.php?$(/usr/bin/hostname -s)
+/usr/bin/curl -fslk --header "Forwarded: $(ip -4 addr show scope global | grep -oP '(?<=inet\s)\d+(\.\d+){3}')" https://sev.spacescience.ro/dnsmasq/reg.php?$(/usr/bin/hostname -s)
 
 EOF
 chmod +x /etc/NetworkManager/dispatcher.d/30-regip
