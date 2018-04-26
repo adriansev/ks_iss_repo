@@ -7,3 +7,10 @@ EOF
 chmod +x /etc/NetworkManager/dispatcher.d/30-regip
 echo
 
+
+cat << EOF >> /etc/crontab
+
+@reboot root /etc/NetworkManager/dispatcher.d/30-regip &> /dev/null
+
+EOF
+
