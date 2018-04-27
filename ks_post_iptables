@@ -8,7 +8,6 @@ if [[ -e /etc/sysconfig/iptables ]] ; then
 
     systemctl disable firewalld
     yum -y remove firewalld*
-    systemctl enable iptables ip6tables
-    systemctl restart iptables ip6tables
+    systemctl enable --now iptables ip6tables
 fi
 
