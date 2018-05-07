@@ -1,0 +1,10 @@
+
+## customise dracut configuration
+echo "Configure dracut raid"
+cat << 'EOF' >> /etc/dracut.conf.d/90_raid.conf
+mdadmconf="yes"
+add_dracutmodules+="dm dmraid mdraid"
+
+EOF
+echo
+

@@ -1,7 +1,7 @@
 
 ## customise dracut configuration
 echo "Configure dracut"
-cat << EOF >> /etc/dracut.conf.d/configinit.conf
+cat << 'EOF' >> /etc/dracut.conf.d/00_configinit.conf
 hostonly="yes"
 mdadmconf="no"
 lvmconf="no"
