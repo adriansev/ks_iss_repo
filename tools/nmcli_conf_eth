@@ -1,0 +1,18 @@
+#!/bin/bash
+
+DEV=$1
+IP_MASK=$2
+GW=$3
+DNS=$4
+
+nmcli con show ${DEV}
+
+nmcli con mod ${DEV} ipv4.addresses ${IP_MASK}
+nmcli con mod ${DEV} ipv4.gateway ${GW}
+nmcli con mod ${DEV} ipv4.dns ${DNS}
+
+nmcli con mod ${DEV} ipv4.method manual
+
+
+
+
