@@ -19,5 +19,17 @@ sha256sum -c MYSHA256SUMS_EXTPACK
 REZ=$?
 [[ ${REZ} != "0" ]] && { echo "SHA256 CHECKSUM FAILED!!!" && exit 1; }
 
-sudo VBoxManage extpack install ${EXTPACK}
+vbox_installed=$(which VBoxManage 2>/dev/null)
+
+if [[ -z "${vbox_installed}" ]]; then
+  is_dnf=$(which dnf 2>/dev/null)
+  INSTALL="yum"
+  [[ -n "${is_dnf}" ]] && INSTALL="dnf"
+  ${INSTALL} -y install elfutils-libelf-devel gcc make perl kernel-headers kernel-devel VirtualBox-5.2
+fi
+
+systemctl enable --now vboxdrv.service vboxautostart-service.service vboxballoonctrl-service.service vboxweb-service.service
+systemctl restart systemd-modules-load.service
+
+VBoxManage --accept-license=56be48f923303c8cababb0bb4c478284b688ed23f16d775d729b89a2e8e5f9eb extpack install ${EXTPACK}
 
