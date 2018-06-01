@@ -2,6 +2,7 @@
 -*-firmware-*
 -plymouth*
 acpid
+bind-utils
 bzip2
 chrony
 curl
