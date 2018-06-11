@@ -1,3 +1,5 @@
 # add cvmfs repository
-yum -y --skip-broken install https://ecsft.cern.ch/dist/cvmfs/cvmfs-release/cvmfs-release-latest.noarch.rpm
+rpm --import http://cvmrepo.web.cern.ch/cvmrepo/yum/RPM-GPG-KEY-CernVM
+yum-config-manager -y --add-repo http://cvmrepo.web.cern.ch/cvmrepo/yum/cernvm.repo &>/dev/null
+yum-config-manager -y --enable cernvm cernvm-config &>/dev/null
 

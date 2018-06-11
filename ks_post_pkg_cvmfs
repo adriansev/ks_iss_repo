@@ -1,1 +1,8 @@
-yum -y --skip-broken install cvmfs cvmfs-config-egi
+groupadd -g 63333 cvmfs
+useradd -r -M -g cvmfs -u 63333 -s /usr/sbin/nologin cvmfs
+usermod -L cvmfs
+
+mkdir -p /home/cvmfs/cache
+chown -R cvmfs:cvmfs /home/cvmfs/cache
+yum -y --skip-broken install redhat-lsb.x86_64 yum-plugin-fastestmirror fuse fuse-libs autofs cvmfs cvmfs-config-egi
+
