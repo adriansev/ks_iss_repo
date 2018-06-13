@@ -1,4 +1,5 @@
 
+yum install -y mdadm.x86_64 dmraid.x86_64 dmraid-events.x86_64
 ## customise dracut configuration
 echo "Configure dracut raid"
 cat << 'EOF' >> /etc/dracut.conf.d/90_raid.conf
