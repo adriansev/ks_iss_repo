@@ -1,0 +1,6 @@
+## increase aliprod limits for xrootd storage
+CURDIR=$(pwd)
+cd /etc/security/limits.d/
+curl -Os https://raw.githubusercontent.com/adriansev/ks_iss_repo/master/confs/limits.d/99-xrootd_limits.conf
+cd ${CURDIR}
+
