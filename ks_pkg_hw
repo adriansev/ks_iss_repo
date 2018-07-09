@@ -1,6 +1,7 @@
-linux-firmware
-lshw
-smartmontools
-lm_sensors
-pciutils
+dmidecode
 edac-utils
+linux-firmware
+lm_sensors
+lshw
+pciutils
+smartmontools
