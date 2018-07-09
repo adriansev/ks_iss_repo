@@ -2,8 +2,5 @@ linux-firmware
 lshw
 smartmontools
 lm_sensors
-dmraid
-dmraid-events
-mdadm
 pciutils
 edac-utils
