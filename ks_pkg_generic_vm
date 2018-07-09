@@ -19,6 +19,8 @@ iptables
 iptables-services
 iptables-utils
 iputils
+iptraf-ng
+iotop
 lsof
 man
 mc
