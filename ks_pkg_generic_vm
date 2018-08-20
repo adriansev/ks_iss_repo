@@ -24,6 +24,7 @@ iputils
 iptraf-ng
 iotop
 lsof
+libselinux-python
 man
 mc
 mlocate
