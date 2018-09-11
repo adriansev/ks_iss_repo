@@ -4,19 +4,19 @@ TEAM_NAME="team0"
 
 eth_list=$(/bin/find /sys/class/net -type l -not -lname '*virtual*' -printf '%f\n')
 
-RUNNER_OPTS='\'{ \"runner\": {\"name\": \"loadbalance\"}}\''  ##'
-echo ${RUNNER_OPTS} 
+RUNNER_OPTS='{ "runner": {"name": "loadbalance"} }'  ##'
+echo "${RUNNER_OPTS}"
 exit 1
 
 
-/bin/nmcli con add type team con-name ${TEAM_NAME} ifname ${TEAM_NAME} config ${RUNNER_OPTS}
+/bin/nmcli con add type team con-name "${TEAM_NAME}" ifname "${TEAM_NAME}" config "${RUNNER_OPTS}"
 
 for eth in ${eth_list}; do
-    nm_uid=$(/bin/nmcli -get-values connection.uuid con show ${eth})
+    nm_uid=$(/bin/nmcli -get-values connection.uuid con show "${eth}")
     /bin/nmcli con delete ${nm_uid}
-    /bin/nmcli con add type team-slave ifname ${eth} master ${TEAM_NAME}
+    /bin/nmcli con add type team-slave ifname "${eth}" master "${TEAM_NAME}"
 done
 
-/bin/nmcli con up ${TEAM_NAME}
+/bin/nmcli con up "${TEAM_NAME}"
 /bin/nmcli con reload
 
