@@ -1,0 +1,8 @@
+#!/bin/bash
+
+eth_list=$(ip -o link show | awk -F": " '$2 !~ "lo" {print $2}')
+
+for int in ${eth_list}; do
+  /usr/sbin/ip link set ${int} mtu 9000 txqueuelen 20000
+done
+
