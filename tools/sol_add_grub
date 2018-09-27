@@ -1,0 +1,7 @@
+GRUB_TERMINAL="serial console"
+GRUB_TERMINAL_OUTPUT="serial console"
+
+GRUB_CMDLINE_LINUX="console=tty0 console=ttyS2,115200n8 rd.plymouth=0 plymouth.enable=0 rd.auto=1 rd.md=1 rd.dm=1 rd.lvm=0 rd.luks=0"
+GRUB_SERIAL_COMMAND="serial --speed=115200 --unit=2 --word=8 --parity=no --stop=1"
+
+
