@@ -1,0 +1,11 @@
+#!/bin/bash
+
+eth_up_list=$(ip -o link show | awk -F": " '($2 !~ "lo") && /state UP/ {print $2}') #'
+
+hostname
+for eth in ${eth_up_list}; do
+echo "Interface : ${eth}"
+ethtool -S ${eth} | grep 'error\|drop\|fail' | sort
+done
+echo
+
