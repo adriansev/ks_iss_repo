@@ -1,0 +1,7 @@
+#!/bin/bash
+
+cpupower frequency-set -g performance
+
+systemctl enable --now tuned
+tuned-adm profile throughput-performance
+
