@@ -1,14 +1,30 @@
 #!/bin/bash
 
 DEV=$1
-IP_MASK=$2
-GW=$3
-DNS=$4
+shift
 
-nmcli con mod ${DEV} ipv4.method manual ipv4.addresses ${IP_MASK} ipv4.gateway ${GW} ipv4.dns ${DNS}
-nmcli con mod ${DEV} connection.autoconnect yes
+[[ -z "${DEV}" ]] && { echo "first argument should be the device name"; exit 1; }
+
+eth_list=$(ip -o link show | awk -F": " '$2 !~ "lo" {print $2}')
+[[ ! ${eth_list} =~ ${DEV} ]] && { echo "1st argument should be the device name - device ${DEV} not found in list"; exit 1; }
+
+IP_MASK=$1
+shift
+[[ -z "${IP_MASK}" ]] && { echo "2nd argument should be the IP/MASK one or more addresses splitted by comma"; exit 1; }
+
+GW=$1
+shift
+[[ -z "${GW}" ]] && { echo "3rd argument should be the GATEWAY"; exit 1; }
+
+DNS=$1
+shift
+
+DEVID=$(nmcli -t con show | awk -F: -v dev="${DEV}" '$0 ~ dev {print $2;}' ) #'
+
+nmcli con mod ${DEVID} ipv4.method manual ipv4.addresses ${IP_MASK} ipv4.gateway ${GW} ipv4.dns ${DNS}
+nmcli con mod ${DEVID} connection.autoconnect yes
 nmcli con reload
-nmcli con show ${DEV} | grep ^ipv
+nmcli con show ${DEVID} | grep ^ipv
 
-echo -e "\nNow run :\nnmcli con up ${DEV}"
+echo -e "\nNow run :\nnmcli con up ${DEVID}"
 
