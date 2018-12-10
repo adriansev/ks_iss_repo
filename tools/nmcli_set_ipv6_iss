@@ -11,10 +11,12 @@ IP_MASK=$1
 shift
 [[ -z "${IP_MASK}" ]] && { echo "second argument should be the ipv6 adresses list - one or more"; exit 1; }
 
-nmcli con mod ${DEV} ipv6.method manual ipv6.addresses ${IP_MASK} ipv6.gateway 2001:0b30:4210::1 ipv6.dns 2001:0b30:4210::253 2001:4860:4860::8888 2001:4860:4860::8844
-nmcli con mod ${DEV} connection.autoconnect yes
-nmcli con reload
-nmcli con show ${DEV} | grep ^ipv
+DEVID=$(nmcli -t con show | awk -F: -v dev="${DEV}" '$0 ~ dev {print $2;}' ) #'
 
-echo -e "\nNow run :\nnmcli con up ${DEV}"
+nmcli con mod ${DEVID} ipv6.method manual ipv6.addresses ${IP_MASK} ipv6.gateway 2001:0b30:4210::1 ipv6.dns 2001:0b30:4210::253 2001:4860:4860::8888 2001:4860:4860::8844
+nmcli con mod ${DEVID} connection.autoconnect yes
+nmcli con reload
+nmcli con show ${DEVID} | grep ^ipv
+
+echo -e "\nNow run :\nnmcli con up ${DEVID}"
 
