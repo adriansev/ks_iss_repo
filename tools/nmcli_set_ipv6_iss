@@ -14,7 +14,7 @@ shift
 nmcli con mod ${DEV} ipv6.method manual ipv6.addresses ${IP_MASK} ipv6.gateway 2001:0b30:4210::1 ipv6.dns 2001:0b30:4210::253 2001:4860:4860::8888 2001:4860:4860::8844
 nmcli con mod ${DEV} connection.autoconnect yes
 nmcli con reload
-nmcli con show ${DEV}
+nmcli con show ${DEV} | grep ^ipv
 
 echo -e "\nNow run :\nnmcli con up ${DEV}"
 
