@@ -13,7 +13,7 @@ shift
 
 DEVID=$(nmcli -t con show | awk -F: -v dev="${DEV}" '$0 ~ dev {print $2;}' ) #'
 
-nmcli con mod ${DEVID} ipv6.method manual ipv6.addresses ${IP_MASK} ipv6.gateway 2001:0b30:4210::1 ipv6.dns 2001:0b30:4210::253 2001:4860:4860::8888 2001:4860:4860::8844
+nmcli con mod ${DEVID} ipv6.method manual ipv6.addresses ${IP_MASK} ipv6.gateway 2001:0b30:4210::1 ipv6.dns 2001:0b30:4210::253,2001:4860:4860::8888,2001:4860:4860::8844
 nmcli con mod ${DEVID} connection.autoconnect yes
 nmcli con reload
 nmcli con show ${DEVID} | grep ^ipv
