@@ -4,7 +4,7 @@ install
 nfs --server=monitor.spacescience.ro --dir=/f29/
 ##url --url=http://monitor.spacescience.ro/f29/
 
-repo --name=fedora-updates --baseurl=http://monitor.spacescience.ro/mirrors/fedora/updates/29/x86_64/
+repo --name=fedora-updates --baseurl=http://monitor.spacescience.ro/mirrors/fedora/updates/29/Everything/x86_64/
 
 repo --name=rpmfusion-free            --mirrorlist="https://mirrors.rpmfusion.org/mirrorlist?repo=free-fedora-29&arch=x86_64"    --includepkgs=rpmfusion-free-release
 repo --name=rpmfusion-free-updates    --mirrorlist="https://mirrors.rpmfusion.org/mirrorlist?repo=free-fedora-updates-released-29&arch=x86_64"
