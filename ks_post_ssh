@@ -45,3 +45,11 @@ fi
 
 echo
 
+mkdir -p /root/.ssh
+cd /root/.ssh
+ssh-keygen -N "" -t rsa     -f ./id_rsa   -b 4096
+ssh-keygen -N "" -t ecdsa   -f ./id_ecdsa -b 521
+ssh-keygen -N "" -t ed25519 -f ./id_ed25519
+chmod -R a=,u=rwX /root/.ssh
+chmod -R a+r /root/.ssh/*.pub
+
