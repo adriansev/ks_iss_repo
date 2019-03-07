@@ -2,21 +2,9 @@
 
 DEV=$1
 shift
-[[ -z "${DEV}" ]] && { echo "first argument should be the device name"; exit 1; }
-
-eth_list=$(ip -o link show | awk -F": " '$2 !~ "lo" {print $2}')
-[[ ! ${eth_list} =~ ${DEV} ]] && { echo "first argument should be the device name - device ${DEV} not found in list"; exit 1; }
 
 IP_MASK=$1
 shift
-[[ -z "${IP_MASK}" ]] && { echo "second argument should be the ipv6 adresses list - one or more"; exit 1; }
 
-DEVID=$(nmcli -t con show | awk -F: -v dev="${DEV}" '$0 ~ dev {print $2;}' ) #'
-
-nmcli con mod ${DEVID} ipv6.method manual ipv6.addresses ${IP_MASK} ipv6.gateway 2001:0b30:4210::1 ipv6.dns 2001:0b30:4210::253,2001:4860:4860::8888,2001:4860:4860::8844
-nmcli con mod ${DEVID} connection.autoconnect yes
-nmcli con reload
-nmcli con show ${DEVID} | grep ^ipv
-
-echo -e "\nNow run :\nnmcli con up ${DEVID}"
+nmcli_set_ip ${DEV} ${IP_MASK} 2001:0b30:4210::1 2001:0b30:4210::253,2001:4860:4860::8888,2001:4860:4860::8844
 

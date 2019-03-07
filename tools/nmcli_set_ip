@@ -1,0 +1,49 @@
+#!/bin/bash
+
+help () {
+echo "The command have the form :
+${0} DEV IP_MASK GW DNS
+where :
+DEV : is the target device
+IP_MASK : is a comma delimited IP/MASK declarations (one or more ips)
+GW : optional, gateway
+DNS : if GW is setup, list of dns addresses
+"
+}
+
+DEV="${1}"
+shift
+[[ -z "${DEV}" ]] && { help; exit 1; }
+
+eth_list=$(ip -o link show | awk -F": " '$2 !~ "lo" {print $2}')
+[[ ! ${eth_list} =~ ${DEV} ]] && { echo "1st argument should be the device name - device ${DEV} not found in list"; exit 1; }
+
+IP_MASK="${1}"
+shift
+[[ -z "${IP_MASK}" || ! "${IP_MASK}" =~ .*\/.* ]]  && { echo "2nd argument should be in the form of IP/MASK, one or more addresses splitted by comma"; exit 1; }
+
+ip_type () {
+[[ ${1} =~ .*\..*\/.* ]] && { echo -ne "ipv4" ; return; }
+[[ ${1} =~ .*:.*\/.*  ]] && { echo -ne "ipv6" ; return; }
+echo "IP/MASK could not be recognized"; exit 1;
+}
+
+IPTYPE="$(ip_type "${IP_MASK}")"
+
+GW="${1}"
+shift
+
+[[ -n "${GW}" ]] && DNS="$@"
+
+METHOD="${IPTYPE}.method manual"
+IP_SETUP="${IPTYPE}.addresses ${IP_MASK}"
+[[ -n "${GW}"  ]] && GW_SETUP="${IPTYPE}.gateway ${GW}"
+[[ -n "${DNS}" ]] && DNS_SETUP="${IPTYPE}.dns ${DNS}"
+
+DEVID=$(nmcli -t con show | awk -F: -v dev="${DEV}" '$0 ~ dev {print $2;}' ) #'
+
+nmcli con mod ${DEVID} ${METHOD} ${IP_SETUP} ${GW_SETUP} ${DNS_SETUP} connection.autoconnect yes
+nmcli con reload
+nmcli con show ${DEVID} | grep ^${IPTYPE}
+nmcli con up ${DEVID}
+
