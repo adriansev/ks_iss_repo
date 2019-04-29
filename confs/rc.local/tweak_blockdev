@@ -2,12 +2,17 @@
 
 ##ls -l /lib/modules/*/kernel/block/
 
-sched="mq-deadline"
+sched=${1:-"mq-deadline"}
 
-modprobe ${sched}
-mod_name=$(modinfo ${sched} | awk -F":[[:space:]]*" '/^name/ {print $2}')
-is_present=$(lsmod | grep ${mod_name})
-[[ -z "${is_present}" ]] && { echo "scheduler module could not be loaded"; exit 1; }
+is_available=$(grep ${sched} /sys/block/sda/queue/scheduler)
+
+if [[ -z "${is_available}" ]]; then
+    modprobe ${sched}
+    mod_name=$(modinfo ${sched} | awk -F":[[:space:]]*" '/^name/ {print $2}')
+
+    is_present=$(lsmod | grep ${mod_name})
+    [[ -z "${is_present}" ]] && { echo "scheduler module could not be loaded"; exit 1; }
+fi
 
 cpupower frequency-set -g performance  >/dev/null
 
