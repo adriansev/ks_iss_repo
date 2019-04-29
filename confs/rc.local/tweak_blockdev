@@ -1,20 +1,21 @@
 #!/bin/bash
 
-## for all storages ; mount point of storages is /storage*
-for dev_storage in `df | grep storage | awk '{ print $1 }'`
-do
-  blockdev --setra 16384 $dev_storage
+##ls -l /lib/modules/*/kernel/block/
 
-  dev=`echo $dev_storage | awk -F"/" '{print $3}' | cut -c -3`
+sched="mq-deadline"
 
-  # set noop scheduler for raid storage
-  echo noop > /sys/block/$dev/queue/scheduler
+modprobe ${sched}
+mod_name=$(modinfo ${sched} | awk -F":[[:space:]]*" '/^name/ {print $2}')
+is_present=$(lsmod | grep ${mod_name})
+[[ -z "${is_present}" ]] && { echo "scheduler module could not be loaded"; exit 1; }
 
-  # io requests queue
-  echo 4096 > /sys/block/$dev/queue/nr_requests
+cpupower frequency-set -g performance  >/dev/null
 
+for blk in /sys/block/s* ; do
+    dev=$(basename ${blk})
+    echo ${sched} > ${blk}/queue/scheduler
+    echo 2048 > ${blk}/queue/nr_requests
+    echo 4096 > ${blk}/queue/read_ahead_kb
+    echo 512 >  ${blk}/queue/max_sectors_kb
 done
-
-
-
 
