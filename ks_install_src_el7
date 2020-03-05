@@ -8,7 +8,5 @@ nfs --server=monitor.spacescience.ro --dir=/centos7/
 repo --name=epel --baseurl=http://monitor.spacescience.ro/mirrors/epel/7/x86_64/
 
 ## Add basic repositories for os and updates
-repo --name=centos         --baseurl=http://monitor.spacescience.ro/mirrors/centos/7/os/x86_64/
-repo --name=centos-updates --baseurl=http://monitor.spacescience.ro/mirrors/centos/7/updates/x86_64/
-
-
+repo --name=base    --baseurl=http://monitor.spacescience.ro/mirrors/centos/7/os/x86_64/
+repo --name=updates --baseurl=http://monitor.spacescience.ro/mirrors/centos/7/updates/x86_64/
