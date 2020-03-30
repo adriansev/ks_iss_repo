@@ -1,45 +1,18 @@
-#!/bin/bash
+#!/usr/bin/bash
 
-# replace centos base links
-files_base=$(grep -l "\[base\]" /etc/yum.repos.d/*) ## there is (it should be) only one file with centos base repos
-for f in ${files_base}; do
-    # replace base link
-    MIRRORLINK=$(sed -n '/\[base\]/,/\[/p' ${f} | awk '/^mirrorlist.*http/ {gsub(/mirrorlist\s=\s/,"",$0); print $0;}') #'
-    [[ -n "${MIRRORLINK}" ]] && { grep -v "${MIRRORLINK}" ${f} > tmp ; mv -f tmp ${f}; }
-    yum-config-manager --save --setopt=base.baseurl=http://monitor.spacescience.ro/mirrors/centos/7/os/x86_64/ &>/dev/null
+set_repolink () {
+local REPO="${1}"
+local URL="${2}"
+yum-config-manager --save --setopt=${REPO}.baseurl=${URL} &>/dev/null
+yum-config-manager --save --setopt=${REPO}.mirrorlist="" &>/dev/null
+yum-config-manager --save --setopt=${REPO}.keepcache=False &>/dev/null
+}
 
-    # replace updates link
-    MIRRORLINK=$(sed -n '/\[updates\]/,/\[/p' ${f} | awk '/^mirrorlist.*http/ {gsub(/mirrorlist\s=\s/,"",$0); print $0;}') #'
-    [[ -n "${MIRRORLINK}" ]] && { grep -v "${MIRRORLINK}" ${f} > tmp ; mv -f tmp ${f}; }
-    yum-config-manager --save --setopt=updates.baseurl=http://monitor.spacescience.ro/mirrors/centos/7/updates/x86_64/ &>/dev/null
-
-    # replace extras link
-    MIRRORLINK=$(sed -n '/\[extras\]/,/\[/p' ${f} | awk '/^mirrorlist.*http/ {gsub(/mirrorlist\s=\s/,"",$0); print $0;}') #'
-    [[ -n "${MIRRORLINK}" ]] && { grep -v "${MIRRORLINK}" ${f} > tmp ; mv -f tmp ${f}; }
-    yum-config-manager --save --setopt=extras.baseurl=http://monitor.spacescience.ro/mirrors/centos/7/extras/x86_64/ &>/dev/null
-
-    # replace centosplus link
-    MIRRORLINK=$(sed -n '/\[centosplus\]/,/\[/p' ${f} | awk '/^mirrorlist.*http/ {gsub(/mirrorlist\s=\s/,"",$0); print $0;}') #'
-    [[ -n "${MIRRORLINK}" ]] && { grep -v "${MIRRORLINK}" ${f} > tmp ; mv -f tmp ${f}; }
-    yum-config-manager --save --setopt=centosplus.baseurl=http://monitor.spacescience.ro/mirrors/centos/7/centosplus/x86_64/ &>/dev/null
-done
-
-# replace epel base links
-files_epel=$(grep -l "\[epel\]" /etc/yum.repos.d/*) ## there is only one file with epel
-for f in ${files_epel}; do
-    # replace EPEL
-    MIRRORLINK=$(sed -n '/\[epel\]/,/\[/p' ${f} | awk '/^metalink.*http/ {gsub(/metalink\s=\s/,"",$0); print $0;}') #'
-    [[ -n "${MIRRORLINK}" ]] && { grep -v "${MIRRORLINK}" ${f} > tmp ; mv -f tmp ${f}; }
-    yum-config-manager --save --setopt=epel.baseurl=http://monitor.spacescience.ro/mirrors/epel/7/x86_64/ &>/dev/null
-
-    # replace EPEL debug
-    MIRRORLINK=$(sed -n '/\[epel-debuginfo\]/,/\[/p' ${f} | awk '/^metalink.*http/ {gsub(/metalink\s=\s/,"",$0); print $0;}') #'
-    [[ -n "${MIRRORLINK}" ]] && { grep -v "${MIRRORLINK}" ${f} > tmp ; mv -f tmp ${f}; }
-    yum-config-manager --save --setopt=epel-debuginfo.baseurl=http://monitor.spacescience.ro/mirrors/epel/7/x86_64/debug/ &>/dev/null
-
-    # replace EPEL SRPMS
-    MIRRORLINK=$(sed -n '/\[epel-source\]/,/\[/p' ${f} | awk '/^metalink.*http/ {gsub(/metalink\s=\s/,"",$0); print $0;}') #'
-    [[ -n "${MIRRORLINK}" ]] && { grep -v "${MIRRORLINK}" ${f} > tmp ; mv -f tmp ${f}; }
-    yum-config-manager --save --setopt=epel-source.baseurl=http://monitor.spacescience.ro/mirrors/epel/7/SRPMS/ &>/dev/null
-done
+set_repolink base           http://monitor.spacescience.ro/mirrors/centos/7/os/x86_64/
+set_repolink updates        http://monitor.spacescience.ro/mirrors/centos/7/updates/x86_64/
+set_repolink extras         http://monitor.spacescience.ro/mirrors/centos/7/extras/x86_64/
+set_repolink centosplus     http://monitor.spacescience.ro/mirrors/centos/7/centosplus/x86_64/
+set_repolink epel           http://monitor.spacescience.ro/mirrors/epel/7/x86_64/
+set_repolink epel-debuginfo http://monitor.spacescience.ro/mirrors/epel/7/x86_64/debug/
+set_repolink epel-source    http://monitor.spacescience.ro/mirrors/epel/7/SRPMS/
 
