@@ -1,2 +1,2 @@
-network --activate --device=link --bootproto=dhcp --nameserver=85.120.46.1,8.8.8.8,8.8.4.4 --onboot=yes --noipv6
+network --activate --onboot=yes --noipv6 --device=link --bootproto=dhcp --nameserver=85.120.46.1,46.243.114.227,8.8.8.8
 

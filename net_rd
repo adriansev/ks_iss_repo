@@ -1,3 +1,2 @@
-network --hostname=rd.spacescience.ro
-network --activate --device=link --bootproto=static --ip=85.120.46.20 --netmask=255.255.255.192 --gateway=85.120.46.1 --nameserver=85.120.46.1,8.8.8.8,8.8.4.4 --onboot=yes --noipv6
+network --hostname=rd.spacescience.ro --activate --device=link --bootproto=static --ip=85.120.46.20 --netmask=255.255.255.192 --gateway=85.120.46.1 --nameserver=85.120.46.1,8.8.8.8,8.8.4.4 --onboot=yes --noipv6
 
