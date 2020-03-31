@@ -1,2 +1,2 @@
-network --hostname=rdvbox --activate --device=link --bootproto=static --ip=172.20.0.95 --netmask=255.255.255.0 --gateway=172.20.0.254 --nameserver=172.20.0.20 --onboot=yes --noipv6
-
+network --hostname=rdvbox
+network --activate --device=link --bootproto=static --ip=172.20.0.95 --netmask=255.255.255.0 --gateway=172.20.0.254 --nameserver=172.20.0.20 --onboot=yes --noipv6
