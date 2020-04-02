@@ -1,3 +1,5 @@
+timedatectl set-local-rtc 0
+timedatectl set-timezone Europe/Bucharest
 
 ## Configure chrony
 echo "Configure chrony"
@@ -8,6 +10,7 @@ server time.usv.ro iburst
 server 0.ro.pool.ntp.org iburst
 stratumweight 0
 driftfile /var/lib/chrony/drift
+rtconutc
 rtcsync
 makestep 10 3
 port 0
@@ -22,4 +25,6 @@ EOF
 echo
 
 systemctl enable chronyd
+systemctl restart chronyd
+hwclock --systohc
 
