@@ -5,3 +5,4 @@ lm_sensors
 lshw
 pciutils
 smartmontools
+lldpd
