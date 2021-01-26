@@ -41,5 +41,5 @@ services --disabled=avahi-daemon,kdump,gpm --enabled=NetworkManager,sshd,chronyd
 logging --level=debug
 
 # System timezone
-timezone Europe/Bucharest --utc --ntpservers time.usv.ro
+timezone Europe/Bucharest --utc --ntpservers monitor.spacescience.ro,85.120.46.1,time4.facebook.com,time.cloudflare.com
 
