@@ -117,6 +117,7 @@ postfix
 prelink
 procps-ng
 psacct
+ps_mem
 pv
 PyPAM
 python3

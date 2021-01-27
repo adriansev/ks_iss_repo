@@ -1,1 +1,1 @@
-inst.sshd nameserver=85.120.46.1 inst.ks=http://monitor/ex.ks
+inst.sshd nameserver=46.243.114.227 inst.ks=http://monitor/ks/ex.ks
