@@ -1,6 +1,6 @@
 #!/bin/bash
 
-ARG=$1
+ARG="${1}"
 [[ -z "${ARG}" ]] && { echo "The name of ks configuration file should be used as argument"; exit 1; }
 [[ ! -e "${ARG}" ]] && { echo "ks cfg file not found"; exit 1; }
 
@@ -9,7 +9,7 @@ ext="${ARG##*.}"
 [[ "${ext}" != "cfg" ]] && { echo "argument file does not have .cfg extension"; exit 1; }
 
 NAME=$(basename "${filename}" .cfg )
-FILENAME="${NAME}.ks"
+FILENAME="ks/${NAME}.ks"
 
 ## START CREATING KICKSTART FILE
 ( bash ${ARG} ) > ${FILENAME}
@@ -19,5 +19,5 @@ eval $(sed -n 's/#KSVER/KSVER/p' ${FILENAME})
 
 ksvalidator ${KSVALIDATEVER} ${FILENAME}
 
-[[ "$(hostname -s)" != "monitor" ]] && scp ${FILENAME} monitor_root:/var/www/html/ks/${FILENAME}
+[[ "$(hostname -s)" != "monitor" ]] && scp ${FILENAME} monitor_root:/var/www/html/ks/$(basename ${FILENAME})
 

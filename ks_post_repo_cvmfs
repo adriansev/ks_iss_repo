@@ -1,5 +1,0 @@
-# add cvmfs repository
-rpm --import http://cvmrepo.web.cern.ch/cvmrepo/yum/RPM-GPG-KEY-CernVM
-yum-config-manager -y --add-repo http://cvmrepo.web.cern.ch/cvmrepo/yum/cernvm.repo &>/dev/null
-yum-config-manager -y --enable cernvm cernvm-config &>/dev/null
-
