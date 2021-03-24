@@ -1,9 +1,0 @@
-dnf
-dnf-plugins-core
-dnf-yum
-python3-dnf
-python3-dnf-plugins-core
-python3-dnf-plugins-extras-common
-python3-dnf-plugin-system-upgrade
-python3-dnf-plugin-tracer
-python3-dnf-plugin-versionlock

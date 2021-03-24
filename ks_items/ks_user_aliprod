@@ -1,7 +1,0 @@
-#!/bin/bash
-
-HASH=$(cat aliprod_pass.hash | tr -d '[:space:]')
-
-echo -ne '# add user aliprod
-user --name=aliprod --groups=wheel --iscrypted --password='
-echo -ne "${HASH}\n\n"

@@ -27,7 +27,6 @@ dbus
 denyhosts
 device-mapper-persistent-data
 dhclient
-dmraid
 dos2unix
 dosfstools
 dracut-config-generic
@@ -41,8 +40,6 @@ file
 filesystem
 -firewalld*
 -*-firmware-*
-fwupd
-fwupdate
 ganglia-gmond
 gdisk
 genisoimage
@@ -80,7 +77,6 @@ lsof
 man
 man-db
 mc
-mdadm
 microcode_ctl
 mkbootdisk
 mlocate
@@ -96,8 +92,6 @@ NetworkManager-tui
 ntp
 ntpdate
 ntsysv
-nvme-cli
-nvmetcli
 oddjob
 openssh-clients
 openssh-keycat
@@ -145,7 +139,6 @@ sg3_utils
 sg3_utils-libs
 sgpio
 shadow-utils
-smartmontools
 sos
 sos-collector
 squashfs-tools
@@ -180,7 +173,6 @@ xz
 yum
 yum-langpacks
 yum-plugin-aliases
-yum-plugin-changelog
 yum-plugin-tmprepo
 yum-plugin-verify
 yum-plugin-versionlock
