@@ -1,7 +1,0 @@
-## apply sysctl optimizations
-CURDIR=$(pwd)
-cd /etc/sysctl.d/
-curl -Os https://raw.githubusercontent.com/adriansev/ks_iss_repo/master/confs/sysctl.d/xrootd.conf
-sysctl --system
-cd ${CURDIR}
-

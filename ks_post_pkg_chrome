@@ -1,4 +1,0 @@
-# add google chrome package (includes repository)
-rpm --import https://dl-ssl.google.com/linux/linux_signing_key.pub
-yum -y --skip-broken install https://dl.google.com/linux/direct/google-chrome-stable_current_x86_64.rpm
-

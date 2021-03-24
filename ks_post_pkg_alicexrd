@@ -1,2 +1,0 @@
-yum -y --skip-broken install xrootd-server xrootd-client alicexrdplugins
-

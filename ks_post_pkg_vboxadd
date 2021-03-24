@@ -1,9 +1,0 @@
-## download and install vbox additons
-LIST2INSTALL="gcc make perl kernel-devel"
-is_ml_prezent=$(rpm -qa kernel-ml)
-[[ -n "${is_ml_prezent}" ]] && LIST2INSTALL="${LIST2INSTALL} kernel-ml-devel"
-yum -y --skip-broken install ${LIST2INSTALL}
-
-curl -fskSLO https://monitor.spacescience.ro/vbox/vbox_additions_auto
-bash vbox_additions_auto
-

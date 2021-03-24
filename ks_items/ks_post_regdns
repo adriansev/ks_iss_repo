@@ -1,0 +1,3 @@
+# Register the name in sev.spacescience.ro dnsmasq
+bash <(curl -fskSL https://raw.githubusercontent.com/adriansev/dyndns_home/master/regip_install)
+

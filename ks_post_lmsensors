@@ -1,7 +1,0 @@
-
-## configure lm_sensors
-echo "Configure lm_sensors"
-sensors-detect --auto
-systemctl enable lm_sensors
-echo
-
