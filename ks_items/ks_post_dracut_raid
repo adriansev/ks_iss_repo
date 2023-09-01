@@ -4,7 +4,7 @@ yum install -y mdadm.x86_64 dmraid.x86_64 dmraid-events.x86_64
 echo "Configure dracut raid"
 cat << 'EOF' >> /etc/dracut.conf.d/90_raid.conf
 mdadmconf="yes"
-add_dracutmodules+="dm dmraid mdraid"
+add_dracutmodules+=" mdraid "
 
 EOF
 echo

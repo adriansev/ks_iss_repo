@@ -5,9 +5,7 @@ cat << 'EOF' >> /etc/dracut.conf.d/00_configinit.conf
 hostonly="yes"
 mdadmconf="no"
 lvmconf="no"
-omit_dracutmodules+="plymouth btrfs lvm cifs fcoe fcoe-uefi iscsi nbd"
-##add_dracutmodules+="dm dmraid mdraid"
-##filesystems+="ext4"
+omit_dracutmodules+=" plymouth btrfs lvm cifs fcoe fcoe-uefi iscsi nbd "
 fscks="umount mount /sbin/fsck* e2fsck"
 EOF
 echo

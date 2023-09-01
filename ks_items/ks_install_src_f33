@@ -1,9 +1,0 @@
-
-# Install from an installation tree on a remote server
-install
-nfs --server=monitor.spacescience.ro --dir=/f33/
-##url --url=http://monitor.spacescience.ro/f33/
-
-repo --name=fedora --baseurl=http://monitor.spacescience.ro/mirrors/fedora/releases/33/Everything/x86_64/os/
-repo --name=updates --baseurl=http://monitor.spacescience.ro/mirrors/fedora/updates/33/Everything/x86_64/
-

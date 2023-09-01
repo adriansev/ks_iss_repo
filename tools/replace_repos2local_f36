@@ -1,0 +1,19 @@
+#!/usr/bin/bash
+
+set_repolink () {
+local REPO="${1}"
+local URL="${2}"
+dnf config-manager --save --setopt=${REPO}.baseurl=${URL} &>/dev/null
+dnf config-manager --save --setopt=${REPO}.metalink="" &>/dev/null
+dnf config-manager --save --setopt=${REPO}.keepcache=False &>/dev/null
+}
+
+set_repolink fedora                    http://monitor.spacescience.ro/mirrors/fedora/releases/36/Everything/x86_64/os/
+set_repolink fedora-debuginfo          http://monitor.spacescience.ro/mirrors/fedora/releases/36/Everything/x86_64/debug/tree/
+set_repolink updates                   http://monitor.spacescience.ro/mirrors/fedora/updates/36/Everything/x86_64/
+set_repolink updates-debuginfo         http://monitor.spacescience.ro/mirrors/fedora/updates/36/Everything/x86_64/debug/
+set_repolink fedora-modular            http://monitor.spacescience.ro/mirrors/fedora/releases/36/Modular/x86_64/os/
+set_repolink fedora-modular-debuginfo  http://monitor.spacescience.ro/mirrors/fedora/releases/36/Modular/x86_64/debug/tree/
+set_repolink updates-modular           http://monitor.spacescience.ro/mirrors/fedora/updates/36/Modular/x86_64/
+set_repolink updates-modular-debuginfo http://monitor.spacescience.ro/mirrors/fedora/updates/36/Modular/x86_64/debug/
+

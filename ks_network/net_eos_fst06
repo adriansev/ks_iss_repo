@@ -1,0 +1,4 @@
+network --hostname=fst06.spacescience.ro
+network --activate --onboot=yes --device=ac:1f:6b:cb:a9:a0 --bootproto=static --ip=85.120.46.33 --netmask=255.255.255.0 --gateway=85.120.46.1 --nameserver=85.120.46.1,8.8.8.8,8.8.4.4 --ipv6=2001:b30:4210:1::33/64 --ipv6gateway=2001:b30:4210::1
+network --activate --onboot=yes --device=ac:1f:6b:cb:a9:a0 --bootproto=static --ip=172.18.0.33  --netmask=255.255.252.0 --noipv6 --vlanid=200
+

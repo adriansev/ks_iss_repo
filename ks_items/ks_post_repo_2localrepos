@@ -1,4 +1,0 @@
-## replace local mirrorlist with baseurls from monitor
-curl -fskSLO https://raw.githubusercontent.com/adriansev/ks_iss_repo/master/tools/replace_repos2local_el7
-bash replace_repos2local_el7
-

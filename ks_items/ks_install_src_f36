@@ -1,0 +1,9 @@
+
+# Install from an installation tree on a remote server
+install
+nfs --server=monitor.spacescience.ro --dir=/f36/
+##url --url=http://monitor.spacescience.ro/f36/
+
+repo --name=fedora --baseurl=http://monitor.spacescience.ro/mirrors/fedora/releases/36/Everything/x86_64/os/
+repo --name=updates --baseurl=http://monitor.spacescience.ro/mirrors/fedora/updates/36/Everything/x86_64/
+
