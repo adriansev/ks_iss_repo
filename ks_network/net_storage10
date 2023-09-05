@@ -1,4 +1,0 @@
-network --hostname=storage10.spacescience.ro
-network --activate --onboot=yes --device=3c:ec:ef:70:49:df --bootproto=static --ip=85.120.46.30 --netmask=255.255.255.192 --gateway=85.120.46.1 --nameserver=85.120.46.1,8.8.8.8,8.8.4.4 --ipv6=2001:b30:4210:1::30/64 --ipv6gateway=2001:b30:4210::1
-network --activate --onboot=yes --device=3c:ec:ef:70:49:de --bootproto=static --ip=172.18.0.30  --netmask=255.255.252.0 --noipv6
-

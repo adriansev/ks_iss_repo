@@ -1,4 +1,0 @@
-network --hostname=storage07.spacescience.ro
-network --activate --device=0c:c4:7a:bd:70:d4 --bootproto=static --ip=172.18.0.27  --netmask=255.255.252.0   --onboot=yes --noipv6
-network --activate --device=0c:c4:7a:bd:70:d5 --bootproto=static --ip=85.120.46.27 --netmask=255.255.255.192 --gateway=85.120.46.1 --nameserver=85.120.46.1,8.8.8.8,8.8.4.4 --onboot=yes --noipv6
-
