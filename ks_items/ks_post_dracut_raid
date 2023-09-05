@@ -1,11 +1,12 @@
-
-yum install -y mdadm.x86_64 dmraid.x86_64 dmraid-events.x86_64
 ## customise dracut configuration
 echo "Configure dracut raid"
-cat << 'EOF' >> /etc/dracut.conf.d/90_raid.conf
+cat << 'EOF' >> /etc/dracut.conf.d/00_configinit.conf
+hostonly="yes"
 mdadmconf="yes"
+lvmconf="no"
+omit_dracutmodules+=" plymouth btrfs lvm cifs fcoe fcoe-uefi iscsi nbd "
+fscks=" umount mount /sbin/fsck* e2fsck "
 add_dracutmodules+=" mdraid "
 
 EOF
 echo
-

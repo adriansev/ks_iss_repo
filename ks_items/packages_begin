@@ -1,0 +1,4 @@
+###########################################################
+# --nocore
+%packages --ignoremissing --excludedocs --inst-langs en_US --exclude-weakdeps
+

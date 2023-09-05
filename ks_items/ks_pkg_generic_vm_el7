@@ -74,6 +74,7 @@ logrotate
 logwatch
 lshw
 lsof
+mdadm
 man
 man-db
 mc
@@ -179,3 +180,11 @@ yum-plugin-versionlock
 yum-utils
 zip
 zsh
+efibootmgr
+efivar
+gnu-efi-utils
+grub2-efi
+grub2-efi-x64
+grub2-efi-x64-modules
+grub2-tools-efi
+grub2-tools-extra

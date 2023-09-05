@@ -19,19 +19,25 @@ ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEFCX1q+b58AW8dagJZyuYCGwONW1bYwscW2++96gA0J
 
 EOF
 chmod 600 /root/.ssh/authorized_keys
+popd &> /dev/null
 
+mkdir -p /etc/ssh/sshd_config.d
 # change the ssh port and permit root logon
-/usr/bin/sed -i 's/#Port 22/Port 60000/;' /etc/ssh/sshd_config
-/usr/bin/sed -i '/#PermitRootLogin/s/.*/PermitRootLogin prohibit-password/;' /etc/ssh/sshd_config
+cat << EOF >> /etc/ssh/sshd_config.d/99-iss.conf
+Port 60000
+PermitRootLogin prohibit-password
+
+EOF
+
+
+systemctl enable sshd
+systemctl restart sshd
 
 SE_STATUS="$(/usr/sbin/getenforce)"
 if [[ "${SE_STATUS}" != "Disabled" ]]; then
     ## permit in selinux the 60000 port
     semanage port -a -t ssh_port_t -p tcp 60000
 fi
-
-systemctl enable sshd
-systemctl restart sshd
 
 ## make sure the ssh is configured
 

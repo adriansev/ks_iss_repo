@@ -1,7 +1,7 @@
 
 ## remove rhgb
-echo "Configure plymouth"
-plymouth-set-default-theme details
+# echo "Configure plymouth"
+# plymouth-set-default-theme details
 dracut -f
 
 ## Verbose boot

@@ -1,0 +1,7 @@
+
+echo "End of Kickstart"
+%end
+
+%addon com_redhat_kdump --disable
+%end
+
