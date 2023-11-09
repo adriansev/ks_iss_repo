@@ -1,0 +1,2 @@
+network --hostname=monitor.spacescience.ro
+network --activate --onboot=yes --device=link --bootproto=static --ip=46.243.114.227 --netmask=255.255.255.128 --gateway=46.243.114.254 --nameserver=46.243.114.227,85.120.46.1,8.8.8.8 --ipv6=2001:b30:4210::227/48 --ipv6gateway=2001:b30:4210::1
