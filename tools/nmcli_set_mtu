@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-for int in $(nmcli -t con show --active | awk -F: '{print $2}'); do
+for int in $(nmcli -t con show --active | awk -F: '!/loop/{print $2}'); do
   nmcli connection modify ${int} 802-3-ethernet.mtu 9000
   nmcli connection modify ${int} ipv6.mtu 9000
 
@@ -11,5 +11,5 @@ export LC_ALL=C
 [[ "${2}" == "up" ]] && /usr/sbin/ip link set "${1}" txqueuelen 20000
 EOF
   fi
-  echo "Now run:\nnmcli con reload"
 done
+echo -e "Now run:\nnmcli con reload"
