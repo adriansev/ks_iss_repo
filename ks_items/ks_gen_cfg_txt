@@ -9,7 +9,7 @@ authconfig --enableshadow --passalgo=sha512
 firstboot --disabled
 
 ## Installation mode
-graphical
+text
 
 # Run the Setup Agent on first boot
 firstboot --disabled

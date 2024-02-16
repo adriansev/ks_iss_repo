@@ -1,7 +1,7 @@
 
 # Install from an installation tree on a remote server
 install
-url --url=http://monitor.spacescience.ro/mirrors/centos/7/os/x86_64/
+nfs --server=monitor.spacescience.ro --dir=/centos7/
 
 ## Add basic repositories for os and updates
 repo --name=base    --baseurl=http://monitor.spacescience.ro/mirrors/centos/7/os/x86_64/

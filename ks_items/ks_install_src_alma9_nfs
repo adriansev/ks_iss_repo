@@ -1,6 +1,6 @@
 
 # Install from an installation tree on a remote server
-url --url=http://monitor.spacescience.ro/mirrors/almalinux/9/BaseOS/x86_64/os/
+nfs --server=monitor.spacescience.ro --dir=/alma9/
 
 ## Add basic repositories for os and updates
 repo --name=BaseOS    --baseurl=http://monitor.spacescience.ro/mirrors/almalinux/9/BaseOS/x86_64/os/

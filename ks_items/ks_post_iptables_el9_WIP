@@ -1,0 +1,13 @@
+## configuration of iptables
+if [[ -e /etc/sysconfig/iptables ]] ; then
+    cp /etc/sysconfig/iptables /etc/sysconfig/iptables_ini_cfg
+    cp /etc/sysconfig/ip6tables /etc/sysconfig/ip6tables_ini_cfg
+
+    sed -i 's/REJECT --reject-with icmp-host-prohibited/DROP/' /etc/sysconfig/iptables
+    sed -i 's/REJECT --reject-with icmp6-adm-prohibited/DROP/' /etc/sysconfig/ip6tables
+
+    systemctl disable firewalld
+    yum -y remove firewalld*
+    systemctl enable --now iptables ip6tables
+fi
+

@@ -1,0 +1,17 @@
+
+%pre --interpreter=/bin/bash
+
+disks=$(ls -og /sys/block/* | awk '!/virtual/ {sub(".*/", "", $NF); print $NF;}')
+arr=(${disks})
+FIRST_DISK=${arr[0]}
+
+( echo "
+zerombr
+clearpart --drives=${FIRST_DISK} --all
+part / --ondisk=${FIRST_DISK} --size=1 --grow --fstype=ext4 --fsoptions=\"defaults,noatime,acl,user_xattr,commit=20\"
+" ) > /tmp/partition_info
+
+%end
+
+%include /tmp/partition_info
+

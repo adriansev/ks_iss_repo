@@ -1,0 +1,55 @@
+
+## CONFIGURE SSH
+echo "Configure sshd"
+
+## Root ssh keys
+mkdir -p /root/.ssh
+chmod 700 /root/.ssh
+pushd /root/.ssh
+
+ssh-keygen -N "" -t ed25519 -f ./id_ed25519
+chmod -R a+r /root/.ssh/*.pub
+
+cat << EOF >> /root/.ssh/authorized_keys
+ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEA30vcy0LtvLP4JxttyB7iEUr3KwU949R4w3d9B2zuRF0ZxD+EORVZK9/vku4QBwvjXaZb26A6NAQANlopOE+otEo2cueWzO7EmPJrwCA1PCF71FIyNcC/mFZpofvm7joRGlDnRYw9eW1cY77TvQZi2nYLEK5f3YC+fJK4qyylaNcL3Rpw63prmDutvdBtFsoXdvxuVXdSzlBTMo9+SVxze9Xh0VhPZ0SOQBtTtRzPsfaKJrB5nqVewrtUpNfc0TfBLnZxP9SfKh9yJE5tnZ2hnH2un6E/kobtt6NVi3uRqsfypjJGMe/4A6O12+VKzQ0dvcnqGu7v6Q3apDWvbdZjdQ== root@monitor.spacescience.ro
+ssh-rsa AAAAB3NzaC1yc2EAAAABJQAAAQEA57bKNDReNsKYeCJh1uGrQEBbssD0B4lfQHOSNyY4KoWf20P2mgz2OXt24tIT9aEqfCO64Kwd+8Fz2ZxEN8ii7h8b9+S+QNcOvEIpgaiRQl5fnaPec/c+FIRchgj6PTnUT+aJo4uIAw4S5B5ylYWydTVw8omKAMT1VHWjcf/tPKvAgEjZqT+rC/DR+rzjP46C9e4xQHvMRf1mhYFqnk451JL6kXWR7oV7/96hoGgHHazXfG7TZJ89iJ8557FilKIfYkyoCslNU5PUyL1S00D7XxE/6QpqXPktN5E5sgGbf6x3uUeMFEFwOGrGXaX4xLpjlGadWXj0014d0NuP4YWJ+Q== jonnys
+ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHGM1p5TGKOOApEimmQO6vwvJGVTWIMcHAQQCYo880x2 adrian@sev.spacescience.ro
+ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDBpAOEYm+IP10w8vTZUUG8Zej98qLdfFOQ+VjM2MJwv adrian@hal.home
+ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEFCX1q+b58AW8dagJZyuYCGwONW1bYwscW2++96gA0J adrian@t420
+
+EOF
+chmod 600 /root/.ssh/authorized_keys
+popd &> /dev/null
+
+mkdir -p /etc/ssh/sshd_config.d
+# change the ssh port and permit root logon
+cat << EOF >> /etc/ssh/sshd_config.d/99-iss.conf
+PermitRootLogin prohibit-password
+
+EOF
+
+
+systemctl enable sshd
+systemctl restart sshd
+
+SE_STATUS="$(/usr/sbin/getenforce)"
+if [[ "${SE_STATUS}" != "Disabled" ]]; then
+    ## permit in selinux the 60000 port
+    semanage port -a -t ssh_port_t -p tcp 60000
+fi
+
+## make sure the ssh is configured
+
+## add ssh port to iptables
+if [[ -e /etc/sysconfig/iptables ]] ; then
+    cp /etc/sysconfig/iptables /etc/sysconfig/iptables_ini_sshd_cfg
+
+    systemctl enable  iptables ip6tables
+    systemctl restart iptables ip6tables
+else
+    firewall-cmd --set-default-zone=public
+    firewall-cmd --permanent --zone=public --add-port=60000/tcp
+    systemctl reload firewalld
+fi
+echo
+
