@@ -37,7 +37,7 @@ services --disabled=avahi-daemon,kdump,gpm --enabled=NetworkManager,sshd,chronyd
 timezone Europe/Bucharest --utc
 
 # Time servers
-timesource --ntp-server monitor.spacescience.ro
+timesource --ntp-server 85.120.46.227
 timesource --ntp-server 85.120.46.1
 timesource --ntp-server time4.facebook.com
 timesource --ntp-server time.cloudflare.com
