@@ -15,7 +15,6 @@ ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEA30vcy0LtvLP4JxttyB7iEUr3KwU949R4w3d9B2zuRF0Z
 ssh-rsa AAAAB3NzaC1yc2EAAAABJQAAAQEA57bKNDReNsKYeCJh1uGrQEBbssD0B4lfQHOSNyY4KoWf20P2mgz2OXt24tIT9aEqfCO64Kwd+8Fz2ZxEN8ii7h8b9+S+QNcOvEIpgaiRQl5fnaPec/c+FIRchgj6PTnUT+aJo4uIAw4S5B5ylYWydTVw8omKAMT1VHWjcf/tPKvAgEjZqT+rC/DR+rzjP46C9e4xQHvMRf1mhYFqnk451JL6kXWR7oV7/96hoGgHHazXfG7TZJ89iJ8557FilKIfYkyoCslNU5PUyL1S00D7XxE/6QpqXPktN5E5sgGbf6x3uUeMFEFwOGrGXaX4xLpjlGadWXj0014d0NuP4YWJ+Q== jonnys
 ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHGM1p5TGKOOApEimmQO6vwvJGVTWIMcHAQQCYo880x2 adrian@sev.spacescience.ro
 ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDBpAOEYm+IP10w8vTZUUG8Zej98qLdfFOQ+VjM2MJwv adrian@hal.home
-ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEFCX1q+b58AW8dagJZyuYCGwONW1bYwscW2++96gA0J adrian@t420
 
 EOF
 chmod 600 /root/.ssh/authorized_keys
@@ -23,12 +22,24 @@ popd &> /dev/null
 
 mkdir -p /etc/ssh/sshd_config.d
 # change the ssh port and permit root logon
-cat << EOF >> /etc/ssh/sshd_config.d/99-iss.conf
+cat << EOF >> /etc/ssh/sshd_config.d/90-issgeneric.conf
+Port 22
 Port 60000
+
+AuthenticationMethods publickey keyboard-interactive
+
 PermitRootLogin prohibit-password
+LoginGraceTime 20
+StrictModes yes
+MaxAuthTries 3
+#MaxSessions 10
+
+# random early drop can be enabled by specifying the three colon separated values start:rate:full (e.g. "10:30:60").
+# sshd(8) will refuse connection attempts with a probability of rate/100 (30%) if there are currently start (10) unauthenticated connections.
+# The probability increases linearly and all connection attempts are refused if the number of unauthenticated connections reaches full (60).
+MaxStartups 10:30:60
 
 EOF
-
 
 systemctl enable sshd
 systemctl restart sshd

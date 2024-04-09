@@ -13,7 +13,6 @@ bind-utils
 biosdevname
 blktrace
 bpftool
-bridge-utils
 bzip2
 chrony
 coreutils
@@ -40,7 +39,6 @@ file
 filesystem
 -firewalld*
 -*-firmware-*
-ganglia-gmond
 gdisk
 genisoimage
 glibc
@@ -93,6 +91,7 @@ NetworkManager-tui
 ntp
 ntpdate
 ntsysv
+nvme-cli
 oddjob
 openssh-clients
 openssh-keycat
