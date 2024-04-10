@@ -96,6 +96,7 @@ procps-ng
 psacct
 ps_mem
 python3
+python-unversioned-command
 python3-jc
 python3-libs
 python3-pip
