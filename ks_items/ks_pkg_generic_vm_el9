@@ -1,4 +1,7 @@
 @^minimal-environment
+-plymouth
+-plymouth*
+-iwl*-firmware
 acl
 acpid
 at
@@ -12,7 +15,6 @@ bc
 bcc
 bind-utils
 biosdevname
-blktrace
 bzip2
 checkpolicy
 chrony
@@ -86,8 +88,6 @@ p7zip
 p7zip-plugins
 parted
 passwd
--plymouth
--plymouth*
 policycoreutils
 policycoreutils-python-utils
 policycoreutils-restorecond
@@ -148,4 +148,4 @@ yum
 yum-utils
 zip
 zstd
-wireshark
+wireshark-cli

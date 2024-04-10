@@ -1,0 +1,6 @@
+
+## CONFIGURE SSH ALIEN
+cat << EOF >> /root/.ssh/authorized_keys
+ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICeN8HhegGwtvoI/YA+YttsSH3wdbcK/daT3IJXABa8W root@alien.spacescience.ro
+EOF
+

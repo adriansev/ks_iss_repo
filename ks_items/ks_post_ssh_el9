@@ -54,9 +54,22 @@ fi
 
 ## add ssh port to iptables
 if [[ -e /etc/sysconfig/iptables ]] ; then
-    cp /etc/sysconfig/iptables /etc/sysconfig/iptables_ini_sshd_cfg
-    sed -i 's/--dport 22/--dport 60000/' /etc/sysconfig/iptables
-    sed -i 's/--dport 22/--dport 60000/' /etc/sysconfig/ip6tables
+    mv /etc/sysconfig/iptables /etc/sysconfig/iptables_ini_sshd_cfg
+
+    cat << EOF >> /etc/sysconfig/iptables
+*filter
+:INPUT DROP [0:0]
+:FORWARD DROP [0:0]
+:OUTPUT ACCEPT [0:0]
+-A INPUT -m state --state RELATED,ESTABLISHED -j ACCEPT
+-A INPUT -p icmp -j ACCEPT
+-A INPUT -i lo -j ACCEPT
+-A INPUT -p tcp -m state --state NEW -m tcp --dport    22 -j ACCEPT
+-A INPUT -p tcp -m state --state NEW -m tcp --dport 60000 -j ACCEPT --source 85.120.46.0/24,46.243.114.128/25,172.20.0.0/24,10.10.8.0/22
+-A INPUT -j DROP
+-A FORWARD -j DROP
+COMMIT
+EOF
 
     systemctl enable  iptables ip6tables
     systemctl restart iptables ip6tables
