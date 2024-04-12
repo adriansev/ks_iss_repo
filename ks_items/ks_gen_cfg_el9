@@ -24,7 +24,7 @@ keyboard --vckeymap=us --xlayouts='us'
 lang en_US.UTF-8
 
 ## enable SSH port in firewall
-firewall --enabled --port=60000:tcp
+firewall --enabled --ssh --port=60000:tcp
 
 # SELinux configuration ;By default, selinux is enforcing
 #selinux --enforcing

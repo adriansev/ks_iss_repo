@@ -1,0 +1,10 @@
+#!/usr/bin/bash
+
+for i in $(seq -w 00 25); do
+    HN="a${i}"
+    IP="$(( 100 + 10#$i))"
+echo "network --hostname=${HN}.spacescience.ro
+network --activate --onboot=yes --device=link --bootproto=static --ip=85.120.46.${IP} --netmask=255.255.255.0 --gateway=85.120.46.1 --nameserver=85.120.46.227,85.120.46.1,8.8.8.8 --mtu=9000 --ipv6=2001:b30:4210:1::${IP}/64 --ipv6gateway=2001:b30:4210::1 --ipv4-dns-search spacescience.ro --ipv6-dns-search spacescience.ro
+" > net_${HN}
+
+done
