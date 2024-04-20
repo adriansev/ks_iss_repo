@@ -19,5 +19,5 @@ eval $(sed -n 's/#KSVER/KSVER/p' ${FILENAME})
 
 ksvalidator ${KSVALIDATEVER} ${FILENAME}
 
-[[ "$(hostname -s)" != "monitor" ]] && scp ${FILENAME} monitor_root:/var/www/html/ks/$(basename ${FILENAME})
+[[ "$(hostname -s)" != "monitor" ]] && scp ${FILENAME} monitor_adrian:/var/www/html/ks/$(basename ${FILENAME}) || cp ${FILENAME} /var/www/html/ks/$(basename ${FILENAME})
 
