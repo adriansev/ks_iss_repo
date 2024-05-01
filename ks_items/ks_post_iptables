@@ -20,7 +20,7 @@ cat << EOF >> /etc/sysconfig/iptables
 COMMIT
 EOF
 
-cat << EOF >> /etc/sysconfig/iptables
+cat << EOF >> /etc/sysconfig/ip6tables
 *filter
 :INPUT DROP [0:0]
 :FORWARD DROP [0:0]
