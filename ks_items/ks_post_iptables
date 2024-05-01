@@ -1,13 +1,42 @@
 ## configuration of iptables
 if [[ -e /etc/sysconfig/iptables ]] ; then
-    cp /etc/sysconfig/iptables /etc/sysconfig/iptables_ini_cfg
-    cp /etc/sysconfig/ip6tables /etc/sysconfig/ip6tables_ini_cfg
-
-    sed -i 's/REJECT --reject-with icmp-host-prohibited/DROP/' /etc/sysconfig/iptables
-    sed -i 's/REJECT --reject-with icmp6-adm-prohibited/DROP/' /etc/sysconfig/ip6tables
-
-    systemctl disable firewalld
-    yum -y remove firewalld*
-    systemctl enable --now iptables ip6tables
+    mv /etc/sysconfig/iptables /etc/sysconfig/iptables_ini_cfg
+    mv /etc/sysconfig/ip6tables /etc/sysconfig/ip6tables_ini_cfg
 fi
+
+cat << EOF >> /etc/sysconfig/iptables
+*filter
+:INPUT DROP [0:0]
+:FORWARD DROP [0:0]
+:OUTPUT ACCEPT [0:0]
+-A INPUT -m state --state RELATED,ESTABLISHED -j ACCEPT
+-A INPUT -p icmp -j ACCEPT
+-A INPUT -i lo -j ACCEPT
+
+-A INPUT -p tcp -m state --state NEW -m tcp --dport    22 -j ACCEPT --source 85.120.46.0/24,46.243.114.128/25,172.20.0.0/24,10.10.8.0/22
+-A INPUT -p tcp -m state --state NEW -m tcp --dport 60000 -j ACCEPT
+-A INPUT -j DROP
+-A FORWARD -j DROP
+COMMIT
+EOF
+
+cat << EOF >> /etc/sysconfig/iptables
+*filter
+:INPUT DROP [0:0]
+:FORWARD DROP [0:0]
+:OUTPUT ACCEPT [0:0]
+-A INPUT -m state --state RELATED,ESTABLISHED -j ACCEPT
+-A INPUT -p ipv6-icmp -j ACCEPT
+-A INPUT -i lo -j ACCEPT
+
+-A INPUT -p tcp -m state --state NEW -m tcp --dport 22    -j ACCEPT --source 2001:b30:4210::/48
+-A INPUT -p tcp -m state --state NEW -m tcp --dport 60000 -j ACCEPT
+-A INPUT -j DROP
+-A FORWARD -j DROP
+COMMIT
+EOF
+
+systemctl disable firewalld
+yum -y remove firewalld*
+systemctl enable --now iptables ip6tables
 

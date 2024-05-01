@@ -1,0 +1,43 @@
+%include /tmp/partition_script
+
+%pre --interpreter=/usr/bin/bash --erroronfail --log=/mnt/sysimage/root/ks-pre.log
+
+disks=$(ls -og /sys/block/* | awk '!/virtual/ {sub(".*/", "", $NF); print $NF;}')
+arr=(${disks})
+FIRST_DISK=${arr[0]}
+
+# ambele linii: bootloader si clearpart sunt ok pentru efi
+# https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/installation_guide/sect-kickstart-syntax
+# --initlabel :: Initializes a disk (or disks) by creating a default disk label for all disks in their respective architecture
+# that have been designated for formatting (for example, msdos for x86)
+# am scos --initlabel ca sa ramana tipul de partitie deja existent
+# dar asta inseamna ca va trebui pentru orice disk/server nou mai intii pus tabela de partitie
+
+[ -d /sys/firmware/efi ] && EFI="yes"
+
+if [ -n ${EFI} ]; then
+    parted -s -a optimal /dev/${FIRST_DISK} mklabel gpt
+
+else
+    parted -s -a optimal /dev/${FIRST_DISK} mklabel msdos
+
+fi
+
+echo "
+zerombr
+clearpart --all --drives=${FIRST_DISK}
+" > /tmp/partition_script
+
+if [ -n ${EFI} ]; then
+    echo "
+part /boot/efi --ondisk=${FIRST_DISK} --size=300 --fstype=efi --fsoptions=\"umask=0077,shortname=winnt\"
+" >> /tmp/partition_script
+fi
+
+echo "
+part /    --ondisk=${FIRST_DISK} --size=20480    --fstype=ext4 --fsoptions=\"defaults,noatime,acl,user_xattr,commit=20\"
+part /var --ondisk=${FIRST_DISK} --size=1 --grow --fstype=ext4 --fsoptions=\"defaults,noatime,acl,user_xattr,commit=20\"
+" >> /tmp/partition_script
+
+%end
+

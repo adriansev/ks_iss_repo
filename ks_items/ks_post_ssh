@@ -33,21 +33,5 @@ fi
 systemctl enable sshd
 systemctl restart sshd
 
-## make sure the ssh is configured
-
-## add ssh port to iptables
-if [[ -e /etc/sysconfig/iptables ]] ; then
-    cp /etc/sysconfig/iptables /etc/sysconfig/iptables_ini_sshd_cfg
-    sed -i 's/--dport 22/--dport 60000/' /etc/sysconfig/iptables
-    sed -i 's/--dport 22/--dport 60000/' /etc/sysconfig/ip6tables
-
-    systemctl enable  iptables ip6tables
-    systemctl restart iptables ip6tables
-else
-    firewall-cmd --set-default-zone=public
-    firewall-cmd --permanent --zone=public --add-port=60000/tcp
-    firewall-cmd --permanent --zone=public --remove-service=dhcpv6-client
-    systemctl reload firewalld
-fi
 echo
 

@@ -50,34 +50,5 @@ if [[ "${SE_STATUS}" != "Disabled" ]]; then
     semanage port -a -t ssh_port_t -p tcp 60000
 fi
 
-## make sure the ssh is configured
-
-## add ssh port to iptables
-if [[ -e /etc/sysconfig/iptables ]] ; then
-    mv /etc/sysconfig/iptables /etc/sysconfig/iptables_ini_sshd_cfg
-
-    cat << EOF >> /etc/sysconfig/iptables
-*filter
-:INPUT DROP [0:0]
-:FORWARD DROP [0:0]
-:OUTPUT ACCEPT [0:0]
--A INPUT -m state --state RELATED,ESTABLISHED -j ACCEPT
--A INPUT -p icmp -j ACCEPT
--A INPUT -i lo -j ACCEPT
--A INPUT -p tcp -m state --state NEW -m tcp --dport    22 -j ACCEPT --source 85.120.46.0/24,46.243.114.128/25,172.20.0.0/24,10.10.8.0/22
--A INPUT -p tcp -m state --state NEW -m tcp --dport 60000 -j ACCEPT --source 85.120.46.0/24,46.243.114.128/25,172.20.0.0/24,10.10.8.0/22
--A INPUT -j DROP
--A FORWARD -j DROP
-COMMIT
-EOF
-
-    systemctl enable  iptables ip6tables
-    systemctl restart iptables ip6tables
-else
-    firewall-cmd --set-default-zone=public
-    firewall-cmd --permanent --zone=public --add-port=60000/tcp
-    firewall-cmd --permanent --zone=public --remove-service=dhcpv6-client
-    systemctl reload firewalld
-fi
 echo
 
