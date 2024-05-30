@@ -1,0 +1,4 @@
+network --hostname=issaf.spacescience.ro
+network --device=ac:1f:6b:d9:e7:86 --activate --onboot=yes --bootproto=static --ethtool='"duplex full autoneg on"' --ip=46.243.114.226 --netmask=255.255.255.128 --gateway=46.243.114.254 --nameserver=46.243.114.227,46.243.114.254,8.8.8.8 --ipv6=2001:b30:4210::226/64 --ipv6gateway=2001:b30:4210::1 --ipv4-dns-search spacescience.ro --ipv6-dns-search spacescience.ro
+network --device=ac:1f:6b:d9:e7:87 --activate --onboot=yes --bootproto=static --ethtool='"duplex full autoneg on"' --ip=10.99.99.1     --netmask=255.255.255.0
+
