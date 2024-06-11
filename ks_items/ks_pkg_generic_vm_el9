@@ -150,3 +150,5 @@ yum-utils
 zip
 zstd
 wireshark-cli
+epel-release
+elrepo-release

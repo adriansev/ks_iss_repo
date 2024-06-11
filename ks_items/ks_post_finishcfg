@@ -3,6 +3,7 @@
 is_dnf=$(which dnf 2>/dev/null)
 
 if [[ -n "${is_dnf}" ]]; then
+  /usr/bin/crb enable
   dnf -y update
 else
   yum -y update

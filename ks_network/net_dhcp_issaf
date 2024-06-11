@@ -1,0 +1,1 @@
+network --activate --onboot=yes --noipv6 --device=link --bootproto=dhcp --nameserver=10.99.99.1 --ipv4-dns-search issaf
