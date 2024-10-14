@@ -22,7 +22,7 @@ popd &> /dev/null
 
 mkdir -p /etc/ssh/sshd_config.d
 # change the ssh port and permit root logon
-cat << EOF >> /etc/ssh/sshd_config.d/90-issgeneric.conf
+cat << EOF >> /etc/ssh/sshd_config.d/00-issgeneric.conf
 Port 22
 Port 60000
 
