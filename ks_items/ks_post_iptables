@@ -9,12 +9,24 @@ cat << EOF >> /etc/sysconfig/iptables
 :INPUT DROP [0:0]
 :FORWARD DROP [0:0]
 :OUTPUT ACCEPT [0:0]
--A INPUT -m state --state RELATED,ESTABLISHED -j ACCEPT
--A INPUT -p icmp -j ACCEPT
+
 -A INPUT -i lo -j ACCEPT
 
--A INPUT -p tcp -m state --state NEW -m tcp --dport    22 -j ACCEPT --source 85.120.46.0/24,46.243.114.128/25,172.20.0.0/24,10.10.8.0/22
--A INPUT -p tcp -m state --state NEW -m tcp --dport 60000 -j ACCEPT
+# DEFAULT ACCEPTS
+-A INPUT -m conntrack --ctstate RELATED,ESTABLISHED -j ACCEPT
+
+# REMOVE INVALID FLAGS COMBINATIONS
+-A INPUT -m conntrack --ctstate INVALID -j DROP
+
+## WHITELISTING - first accept all what was specified to be accepted
+
+# DEFAULT ACCEPT ALL LOCAL SSH - MANAGEMENT
+-A INPUT -m tcp -p tcp -m multiport --dports 22,60000 -j ACCEPT --source 85.120.46.0/24,46.243.114.128/25,172.20.0.0/24,10.10.8.0/22,192.168.10.0/24
+
+# ACCEPT ALL ICMP
+-A INPUT -p icmp -j ACCEPT
+
+# DROP EVERYTHING ELSE
 -A INPUT -j DROP
 -A FORWARD -j DROP
 COMMIT
@@ -25,12 +37,24 @@ cat << EOF >> /etc/sysconfig/ip6tables
 :INPUT DROP [0:0]
 :FORWARD DROP [0:0]
 :OUTPUT ACCEPT [0:0]
--A INPUT -m state --state RELATED,ESTABLISHED -j ACCEPT
--A INPUT -p ipv6-icmp -j ACCEPT
+
 -A INPUT -i lo -j ACCEPT
 
--A INPUT -p tcp -m state --state NEW -m tcp --dport 22    -j ACCEPT --source 2001:b30:4210::/48
--A INPUT -p tcp -m state --state NEW -m tcp --dport 60000 -j ACCEPT
+# DEFAULT ACCEPTS
+-A INPUT -m conntrack --ctstate RELATED,ESTABLISHED -j ACCEPT
+
+# REMOVE INVALID FLAGS COMBINATIONS
+-A INPUT -m conntrack --ctstate INVALID -j DROP
+
+## WHITELISTING - first accept all what was specified to be accepted
+
+# DEFAULT ACCEPT ALL LOCAL SSH - MANAGEMENT
+-A INPUT -m tcp -p tcp -m multiport --dports 22,60000 -j ACCEPT --source 2001:b30:4210::/48
+
+# ACCEPT ALL ICMP
+-A INPUT -p ipv6-icmp -j ACCEPT
+
+# DROP EVERYTHING ELSE
 -A INPUT -j DROP
 -A FORWARD -j DROP
 COMMIT

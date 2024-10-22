@@ -1,9 +1,11 @@
 systemctl enable --now qemu-guest-agent
 systemctl enable --now serial-getty@ttyS0.service
 
-systemctl disable nvmefc-boot-connections.service NetworkManager-wait-online.service dnf-makecache.timer mdmonitor.service remote-fs.target sssd-kcm.socket uuidd.socket
+systemctl disable nvmefc-boot-connections.service NetworkManager-wait-online.service dnf-makecache.timer mdmonitor.service remote-fs.target sssd-kcm.socket sssd.service uuidd.socket
 systemctl mask polkit.service
+systemctl mask systemd-hostnamed.service
+systemctl mask systemd-timedated.service
 
+sed -i '/^daemon =.*$/s/^daemon =.*$/daemon = 0/' /etc/tuned/tuned-main.conf
 tuned-adm profile virtual-guest
-
 

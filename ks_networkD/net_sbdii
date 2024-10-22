@@ -1,0 +1,26 @@
+[Match]
+Name = *
+Type = ether
+
+[Link]
+MTUBytes = 9000
+
+[Network]
+DHCP = no
+LinkLocalAddressing = no
+IPv6PrivacyExtensions = false
+IPv6AcceptRA = false
+DuplicateAddressDetection = no
+IPv6DuplicateAddressDetection = no
+RequiredForOnline = no-carrier
+IgnoreCarrierLoss = 10s
+
+Address = 85.120.46.15/24
+Address = 2001:b30:4210:1::15/64
+
+Gateway = 85.120.46.1
+Gateway = 2001:b30:4210::1
+
+DNS = 85.120.46.227 85.120.46.1
+##NTP = 85.120.46.227 85.120.46.1 time4.facebook.com time.cloudflare.com
+
