@@ -1,3 +1,9 @@
 systemctl enable --now qemu-guest-agent
 systemctl enable --now serial-getty@ttyS0.service
 
+systemctl disable nvmefc-boot-connections.service NetworkManager-wait-online.service dnf-makecache.timer mdmonitor.service remote-fs.target sssd-kcm.socket uuidd.socket
+systemctl mask polkit.service
+
+tuned-adm profile virtual-guest
+
+

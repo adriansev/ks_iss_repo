@@ -1,10 +1,9 @@
 
-## CONFIGURE SSH
-echo "Allow ISS internal root login"
-echo "
+## CONFIGURE SSH :: Allow ISS internal root login
+cat << EOF >> /etc/ssh/sshd_config.d/90-isslocal.conf
 
 Match Address 85.120.46.0/24,46.243.114.128/25,10.10.8.0/22,172.20.0.0/24
 PermitRootLogin yes
 
-" >> /etc/ssh/sshd_config
+EOF
 

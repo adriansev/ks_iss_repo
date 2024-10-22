@@ -1,5 +1,0 @@
-# move unused repos to /root/repos
-mkdir -p /root/repos
-cd /etc/yum.repos.d
-mv CentOS-CR.repo CentOS-Debuginfo.repo CentOS-fasttrack.repo CentOS-Media.repo CentOS-Sources.repo CentOS-Vault.repo epel-testing.repo /root/repos/
-

@@ -1,4 +1,0 @@
-###########################################################
-# --nocore
-%packages --ignoremissing --excludedocs --instLangs=en_US
-
