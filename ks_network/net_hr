@@ -1,1 +1,1 @@
-network --hostname=hr.spacescience.ro --activate --onboot=yes --noipv6 --device=link --bootproto=static --ip=10.10.11.241 --netmask=255.255.252.0 --gateway=10.10.10.101 --nameserver=10.10.10.120,10.10.10.254
+network --hostname=hr.spacescience.ro     --activate --onboot=yes --noipv6 --device=link --bootproto=static --ip=46.243.114.235 --netmask=255.255.252.128 --gateway=46.243.114.254 --nameserver=46.243.114.227,46.243.114.254,8.8.8.8
