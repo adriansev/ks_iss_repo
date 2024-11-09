@@ -1,0 +1,3 @@
+network --hostname=fst04.spacescience.ro
+network --activate --onboot=yes --device=link --bootproto=static --ip=85.120.46.31 --netmask=255.255.255.0 --gateway=85.120.46.1 --nameserver=85.120.46.227,85.120.46.1,8.8.8.8,8.8.4.4 --ipv6=2001:b30:4210:1::31/64 --ipv6gateway=2001:b30:4210::1
+

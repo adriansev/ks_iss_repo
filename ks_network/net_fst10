@@ -1,3 +1,3 @@
 network --hostname=fst10.spacescience.ro
-network --activate --onboot=yes --device=3c:ec:ef:98:37:0e --bootproto=static --ip=85.120.46.26 --netmask=255.255.255.0 --gateway=85.120.46.1 --nameserver=85.120.46.227,85.120.46.1,8.8.8.8 
+network --activate --onboot=yes --device=3c:ec:ef:98:37:0e --bootproto=static --ip=85.120.46.26 --netmask=255.255.255.0 --gateway=85.120.46.1 --nameserver=85.120.46.227,85.120.46.1,8.8.8.8 --ipv6=2001:b30:4210:1::26/64 --ipv6gateway=2001:b30:4210::1
 
