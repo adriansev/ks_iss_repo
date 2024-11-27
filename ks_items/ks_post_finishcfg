@@ -1,3 +1,5 @@
+dnf -y install htop
+
 systemctl enable postfix
 /usr/bin/crb enable
 dnf -y update
