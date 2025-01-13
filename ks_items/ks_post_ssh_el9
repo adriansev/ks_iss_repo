@@ -41,6 +41,8 @@ MaxAuthTries 3
 # The probability increases linearly and all connection attempts are refused if the number of unauthenticated connections reaches full (60).
 MaxStartups 10:30:60
 
+IPQoS af21 throughput
+
 EOF
 
 systemctl enable sshd
