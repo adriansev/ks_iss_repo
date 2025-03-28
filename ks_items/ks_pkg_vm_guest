@@ -1,1 +1,4 @@
+cloud-init
+cloud-utils-growpart
 qemu-guest-agent
+-linux-firmware

@@ -2,6 +2,8 @@
 -plymouth
 -plymouth*
 -iwl*-firmware
+-langpacks-*
+-langpacks-en
 acl
 acpid
 at
