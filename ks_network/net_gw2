@@ -1,0 +1,2 @@
+network --hostname=gw2.spacescience.ro --activate --onboot=yes --noipv6 --device=link --bootproto=static --ip=46.243.114.151 --netmask=255.255.255.128 --gateway=46.243.114.254 --nameserver=46.243.114.227,46.243.114.254,8.8.8.8
+
