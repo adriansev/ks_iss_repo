@@ -1,9 +1,10 @@
 
-## CONFIGURE SSH ALIEN
+## CONFIGURE SSH EOS MGM
 cat << EOF >> /root/.ssh/authorized_keys
 ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILRMid0P/efQ3ZP43JfUFMNvg9McCB7Jha31WMk/2kf2 root@mgm1.spacescience.ro
 ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIL8D4LISgbIrIAcP/cRi6YJJpNf6ny8LaZuEbRxS8DPM root@mgm2.spacescience.ro
 ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHXgZ1tT20J4RXT5oj+rKQsDx5WXcZcM8epxQnjwGeyU root@mgm3.spacescience.ro
+ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJg+2z3TRj066t63EIdfQnnskTz0p6CoxQi7MFCJgnj8 monalisa@monitor.spacescience.ro
 
 EOF
 
