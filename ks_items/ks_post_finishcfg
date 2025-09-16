@@ -1,5 +1,7 @@
-dnf -y install htop
+systemctl enable postfix tmp.mount
 
-systemctl enable postfix
 /usr/bin/crb enable
+
+dnf install -y htop the_silver_searcher
 dnf -y update
+
