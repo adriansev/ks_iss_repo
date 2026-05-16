@@ -1,0 +1,6 @@
+
+## CONFIGURE SSH ALIEN
+cat << EOF >> /root/.ssh/authorized_keys
+ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINMCu9hEwYqVr+qWp8ASn0WQMjufacsT5aI8uwC0ixys root@kuberadm.spacescience.ro
+EOF
+

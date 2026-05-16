@@ -21,7 +21,7 @@ cat << EOF >> /etc/sysconfig/iptables
 ## WHITELISTING - first accept all what was specified to be accepted
 
 # DEFAULT ACCEPT ALL LOCAL SSH - MANAGEMENT
--A INPUT -m tcp -p tcp -m multiport --dports 22,60000 -j ACCEPT --source 85.120.46.0/24,46.243.114.128/25,172.20.0.0/24,10.10.8.0/22,192.168.10.0/24
+-A INPUT -m tcp -p tcp -m multiport --dports 22,60000 -j ACCEPT --source 85.120.46.0/24,46.243.114.128/25,10.10.180.0/24
 
 # ACCEPT ALL ICMP
 -A INPUT -p icmp -j ACCEPT

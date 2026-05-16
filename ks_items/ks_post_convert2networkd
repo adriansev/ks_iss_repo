@@ -1,0 +1,18 @@
+
+
+########################
+###  Convert NM to networkd
+
+dnf install -y systemd-networkd
+
+curl -fsSL https://raw.githubusercontent.com/adriansev/ansible_iss/refs/heads/master/additions/networkd/gen_networkd -o /root/gen_networkd
+chmod +x /root/gen_networkd
+cd /root
+/root/gen_networkd
+
+systemctl disable NetworkManager
+systemctl enable systemd-networkd
+
+###  end of Convert NM to networkd
+#########################
+

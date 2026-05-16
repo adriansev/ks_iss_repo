@@ -1,0 +1,1 @@
+dnf install -y bridge-utils.x86_64

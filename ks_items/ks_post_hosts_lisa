@@ -1,0 +1,24 @@
+
+## CONFIGURE SSH
+echo "Configure /etc/hosts"
+
+cat << EOF >> /etc/hosts
+127.0.0.1   localhost localhost.localdomain localhost4 localhost4.localdomain4
+::1         localhost localhost.localdomain localhost6 localhost6.localdomain6
+
+10.10.180.31 ceph1 ceph1.lisa
+10.10.180.32 ceph2 ceph2.lisa
+10.10.180.33 ceph3 ceph3.lisa
+
+10.10.180.41 wn1 wn1.lisa
+10.10.180.42 wn2 wn2.lisa
+10.10.180.43 wn3 wn3.lisa
+10.10.180.44 wn4 wn4.lisa
+
+10.10.180.120 monitor.lisa
+10.10.180.181 sev.lisa
+
+EOF
+
+echo
+

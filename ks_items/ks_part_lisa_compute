@@ -1,0 +1,43 @@
+%include /tmp/partition_script
+
+%pre --interpreter=/usr/bin/bash --erroronfail --log=/mnt/sysimage/root/ks-pre.log
+
+disks=$(ls -og /sys/block/* | awk '!/virtual/ {sub(".*/", "", $NF); print $NF;}')
+arr=(${disks})
+FIRST_DISK=${arr[0]}
+
+sgdisk --zap-all "/dev/${FIRST_DISK}"
+sgdisk --mbrtogpt "/dev/${FIRST_DISK}"
+sgdisk --set-alignment "/dev/${FIRST_DISK}"
+
+# make EFI
+sgdisk --new=0:1M:+300M --typecode=1:ef00 "/dev/${FIRST_DISK}"
+mkfs.fat -n EFI -F 32 "/dev/${FIRST_DISK}p1"
+
+# make ROOT unformated
+sgdisk --new=0:0:+30G "/dev/${FIRST_DISK}"
+
+# make VAR unformated
+sgdisk --new=0:0:+200G "/dev/${FIRST_DISK}"
+
+# make DATA unformated
+sgdisk --new=0:0:0 "/dev/${FIRST_DISK}"
+
+mkfs.ext4 -L ROOT -b 4096 -E lazy_itable_init=0,lazy_journal_init=0,num_backup_sb=2 -O sparse_super,large_file,filetype,resize_inode,dir_index,ext_attr,has_journal,ea_inode,extent,huge_file,flex_bg,metadata_csum,64bit,dir_index,dir_nlink,extra_isize "/dev/${FIRST_DISK}p2"
+mkfs.ext4 -L VAR  -b 4096 -E lazy_itable_init=0,lazy_journal_init=0,num_backup_sb=2 -O sparse_super,large_file,filetype,resize_inode,dir_index,ext_attr,has_journal,ea_inode,extent,huge_file,flex_bg,metadata_csum,64bit,dir_index,dir_nlink,extra_isize "/dev/${FIRST_DISK}p3"
+mkfs.ext4 -L DATA -b 4096 -E lazy_itable_init=0,lazy_journal_init=0,num_backup_sb=2 -O sparse_super,large_file,filetype,resize_inode,dir_index,ext_attr,has_journal,ea_inode,extent,huge_file,flex_bg,metadata_csum,64bit,dir_index,dir_nlink,extra_isize "/dev/${FIRST_DISK}p4"
+
+tune2fs -E mount_opts=\"noatime acl user_xattr journal_checksum auto_da_alloc\" "/dev/${FIRST_DISK}p2"
+tune2fs -E mount_opts=\"noatime acl user_xattr journal_checksum auto_da_alloc\" "/dev/${FIRST_DISK}p3"
+tune2fs -E mount_opts=\"noatime acl user_xattr journal_checksum auto_da_alloc\" "/dev/${FIRST_DISK}p4"
+
+
+echo "
+part /boot/efi --onpart=${FIRST_DISK}p1 --noformat
+part /         --onpart=${FIRST_DISK}p2
+part /var      --onpart=${FIRST_DISK}p3 --noformat
+part /data     --onpart=${FIRST_DISK}p4 --noformat
+" > /tmp/partition_script
+
+%end
+
